@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.Map;
+
 import com.hotbyte.hotbyte.dto.AuthResponse;
 import com.hotbyte.hotbyte.dto.LoginRequest;
 import com.hotbyte.hotbyte.config.JwtUtil;
@@ -23,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     @Override
-    public String register(RegisterRequest request) {
+    public Map<String, String> register(RegisterRequest request) {
         // ✅ 1. Check duplicate email
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already registered");
@@ -59,10 +61,10 @@ public class AuthServiceImpl implements AuthService {
                     .build();
             restaurantRepository.save(restaurant);
         }
-        return "Registration successful";
+        return Map.of("message", "Registration successful");
     }
     @Override
-    public AuthResponse login(LoginRequest request) {
+    public Map<String, Object> login(LoginRequest request) {
         // ✅ 1. Find user
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -73,10 +75,16 @@ public class AuthServiceImpl implements AuthService {
         // ✅ 3. Generate JWT
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
         // ✅ 4. Return response
-        return AuthResponse.builder()
-                .token(token)
-                .role(user.getRole().name())
-                .name(user.getName())
-                .build();
+//        return AuthResponse.builder()
+//                .token(token)
+//                .role(user.getRole().name())
+//                .name(user.getName())
+//                .build();
+        return Map.of(
+                "message", "Login successful",
+                "token", token,
+                "role", user.getRole().name(),
+                "name", user.getName()
+        );
     }
 }

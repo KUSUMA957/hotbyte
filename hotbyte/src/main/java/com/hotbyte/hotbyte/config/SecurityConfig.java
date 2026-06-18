@@ -13,7 +13,7 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        http.cors(cors -> {}).csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
         		.requestMatchers(
         			    "/api/auth/**",
