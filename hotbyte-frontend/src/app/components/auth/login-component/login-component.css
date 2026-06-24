@@ -1,0 +1,163 @@
+/* Page Layout */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f7fa;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Card */
+.card {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.4s ease;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 24px;
+}
+
+/* Form fields */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+/* Focus effect */
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #007bff, #4facfe);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Button hover */
+.login-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+/* Disabled button */
+.login-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Error messages */
+.error-list {
+  margin-bottom: 15px;
+  padding-left: 20px;
+  color: #d32f2f;
+  font-size: 14px;
+}
+
+/* Success */
+.success-msg {
+  text-align: center;
+  color: #28a745;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Link */
+.link {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ✅ RESPONSIVE DESIGN */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .card {
+    padding: 25px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  
+  .card {
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  input {
+    padding: 10px;
+  }
+
+  .login-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .footer {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,39 @@
+<div class="login-container">
+  <div class="card">
+
+    <h2 class="title">Welcome Back 👋</h2>
+
+    <!-- ✅ ERROR LIST -->
+    <ul class="error-list" *ngIf="errorsList.length">
+      <li *ngFor="let e of errorsList">{{ e }}</li>
+    </ul>
+
+    <!-- SUCCESS -->
+    <p class="success-msg" *ngIf="message">{{ message }}</p>
+
+    <!-- ✅ IMPORTANT CHANGE -->
+    <form [formGroup]="form">
+
+      <div class="form-group">
+        <input placeholder="Email" formControlName="email" />
+      </div>
+
+      <div class="form-group">
+        <input type="password" placeholder="Password" formControlName="password" />
+      </div>
+
+    </form>
+
+    <button
+  (click)="login()" 
+  class="login-btn"
+  [disabled]="loading">
+  {{ loading ? 'Logging in...' : 'Login' }}
+</button>
+    <p class="footer">
+      Don’t have account?
+      <span class="link" routerLink="/register">Register</span>
+    </p>
+
+  </div>
+</div>
