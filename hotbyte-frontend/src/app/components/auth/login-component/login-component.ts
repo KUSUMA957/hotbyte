@@ -77,12 +77,16 @@ export class LoginComponent {
   this.auth.login(this.form.value).subscribe({
 
     next: (res: any) => {
-
+      console.log("LOGIN RESPONSE ✅:", res);
       localStorage.setItem('token', res.token);
       localStorage.setItem('role', res.role);
+      
+ // ✅ ADD THESE TWO (CRITICAL FIX)
+  localStorage.setItem('name', res.name);
+  localStorage.setItem('restaurantName', res.restaurantName);
 
       this.message = 'Login successful ✅';
-
+      
       setTimeout(() => {
         if (res.role === 'ADMIN') this.router.navigate(['/admin']);
         else if (res.role === 'RESTAURANT') this.router.navigate(['/restaurant']);

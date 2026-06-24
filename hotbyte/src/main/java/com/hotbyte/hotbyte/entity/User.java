@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
+import com.hotbyte.hotbyte.dto.RegisterRequest;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -24,4 +26,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     private LocalDateTime createdAt;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Restaurant restaurant;
+	
 }

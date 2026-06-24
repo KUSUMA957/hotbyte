@@ -1,0 +1,293 @@
+/* PAGE */
+.dashboard {
+  padding: 20px;
+  background: #f5f7fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header-left h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.header-left p {
+  color: #777;
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+/* PROFILE ICON */
+.profile {
+  font-size: 26px;
+  cursor: pointer;
+}
+
+/* PROFILE DROPDOWN */
+.profile-box {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  width: 220px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.profile-box h3 {
+  margin-bottom: 5px;
+}
+
+.profile-box p {
+  font-size: 13px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+/* BUTTONS */
+.btn, button {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* PRIMARY BUTTON */
+button {
+  background: #007bff;
+  color: white;
+  transition: 0.25s;
+}
+
+button:hover {
+  background: #0069d9;
+}
+
+/* LOGOUT */
+.logout {
+  background: #dc3545;
+}
+
+.logout:hover {
+  background: #c82333;
+}
+
+/* WELCOME CARD */
+
+.welcome-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.welcome-card {
+  text-align: center;
+  width: 60%;
+  padding: 25px;
+  background: white;
+  border-radius: 10px;
+}
+
+/* .welcome-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.welcome-card h3 {
+  margin: 0;
+}
+
+.welcome-card p {
+  color: #666;
+  font-size: 14px;
+} */
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+/* TEXT */
+.card h3 {
+  margin-bottom: 5px;
+}
+
+.price {
+  color: #28a745;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.desc {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ACTION BUTTONS */
+.actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  flex: 1;
+}
+
+/* DELETE STYLE */
+.delete {
+  background: #dc3545;
+}
+
+.delete:hover {
+  background: #c82333;
+}
+
+/* EMPTY STATE */
+.empty {
+  text-align: center;
+  margin-top: 40px;
+  color: #777;
+}
+
+/* MODAL BACKGROUND */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+/* MODAL CONTENT */
+.modal-content {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* INPUTS */
+.modal-content input,
+.modal-content textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+}
+
+.modal-content textarea {
+  resize: none;
+  height: 60px;
+}
+
+/* CHECKBOX */
+.checkbox {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* BUTTON GROUP */
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-group button {
+  flex: 1;
+}
+
+/* ✅ RESPONSIVE */
+
+/* Tablet */
+@media (max-width: 768px) {
+
+  .welcome-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .profile-box {
+    right: 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+  .dashboard {
+    padding: 15px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .header-left h2 {
+    font-size: 18px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

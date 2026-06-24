@@ -1,7 +1,124 @@
+<div class="dashboard">
 
- <div class="container">
-      <div class="card">
-        <h2>Restaurant Dashboard 🍽️</h2>
-        <button (click)="logout()">Logout</button>
+  <!-- HEADER -->
+  <div class="header">
+
+  <!-- LEFT -->
+  <div class="header-left">
+    <h2>{{ restaurantName }}</h2>
+    <p>{{ ownerName }}</p>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="header-right">
+    <div class="profile" (click)="toggleProfile()">👤</div>
+  </div>
+
+</div>
+<div class="welcome-wrapper">
+<div class="welcome-card">
+
+  <h3>Welcome to your dashboard 👋</h3>
+
+  <p>
+    Here you can add, edit, delete and manage your restaurant menu easily.
+  </p>
+
+  <button (click)="openAdd()">+ Add New Menu Item</button>
+
+</div>
+</div>
+
+
+  <!-- PROFILE DROPDOWN -->
+ <div class="profile-box" *ngIf="showProfile">
+  <h3>{{ restaurantName }}</h3>
+  <p>{{ ownerName }}</p>
+
+  <button>Edit Profile</button>
+  <button (click)="logout()" class="logout">Logout</button>
+</div>
+
+<div *ngIf="menuList.length === 0" class="empty">
+  <h3>No menu items found 🍽️</h3>
+  <p>Click "Add Item" to create your menu</p>
+</div>
+  <!-- MENU GRID -->
+  <div class="grid">
+
+    <div class="card" *ngFor="let item of menuList" (click)="openView(item)">
+
+      <h3>{{ item.itemName }}</h3>
+      <p class="price">₹{{ item.price }}</p>
+
+      <p class="desc">
+        {{ item.description | slice:0:50 }}...
+      </p>
+
+      <!-- ACTIONS -->
+      <div class="actions" (click)="$event.stopPropagation()">
+        <button (click)="openEdit(item); $event.stopPropagation()">Edit</button>
+        <button class="delete" (click)="delete(item.id)">Delete</button>
       </div>
+
     </div>
+
+  </div>
+
+  <!-- MODAL -->
+<!-- ✅ MODAL -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+
+    <!-- ✅ VIEW -->
+    <div *ngIf="viewMode">
+      <h2>{{ formData.itemName }}</h2>
+
+      <p><b>Price:</b> ₹{{ formData.price }}</p>
+      <p><b>Description:</b> {{ formData.description }}</p>
+      <p><b>Category:</b> {{ formData.category }}</p>
+      <p><b>Type:</b> {{ formData.type }}</p>
+      <p><b>Calories:</b> {{ formData.calories }}</p>
+      <p><b>Rating:</b> {{ formData.rating }}</p>
+      <p><b>Serving:</b> {{ formData.servingSize }}</p>
+      <p><b>Nutrition:</b> {{ formData.nutritionalInfo }}</p>
+
+      <button (click)="close()">Close</button>
+    </div>
+
+    <!-- ✅ ADD / EDIT -->
+    <div *ngIf="!viewMode">
+
+      <h2>{{ isEdit ? 'Edit Menu' : 'Add Menu' }}</h2>
+
+      <input [(ngModel)]="formData.itemName" placeholder="Item Name" />
+      <input type="number" [(ngModel)]="formData.price" placeholder="Price" />
+
+      <input [(ngModel)]="formData.category" placeholder="Category" />
+      <input [(ngModel)]="formData.type" placeholder="Type" />
+
+      <input type="number" [(ngModel)]="formData.calories" placeholder="Calories" />
+      <input type="number" [(ngModel)]="formData.rating" placeholder="Rating" />
+
+      <input [(ngModel)]="formData.servingSize" placeholder="Serving Size" />
+
+      <label class="checkbox">
+        <input type="checkbox" [(ngModel)]="formData.available" />
+        Available
+      </label>
+
+      <textarea [(ngModel)]="formData.description" placeholder="Description"></textarea>
+      <textarea [(ngModel)]="formData.nutritionalInfo" placeholder="Nutritional Info"></textarea>
+
+      <div class="btn-group">
+        <button (click)="save()">Save</button>
+        <button (click)="close()">Cancel</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+</div>

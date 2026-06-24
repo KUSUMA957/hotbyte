@@ -1,7 +1,0 @@
-<h2>Menu</h2>
-<div *ngFor="let m of menuList">
-  <h3>{{m.itemName}}</h3>
-  <p>{{m.price}}</p>
-  <button (click)="addToCart(m.id)">Add</button>
-</div>
-<button routerLink="/cart">Go to Cart</button>

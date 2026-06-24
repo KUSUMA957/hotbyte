@@ -74,6 +74,14 @@ public class AuthServiceImpl implements AuthService {
         }
         // ✅ 3. Generate JWT
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
+
+        String restaurantName = null;
+
+        // ✅ Only for RESTAURANT users
+        if (user.getRole() == Role.RESTAURANT && user.getRestaurant() != null) {
+            restaurantName = user.getRestaurant().getRestaurantName();
+        }
+
         // ✅ 4. Return response
 //        return AuthResponse.builder()
 //                .token(token)
@@ -84,7 +92,8 @@ public class AuthServiceImpl implements AuthService {
                 "message", "Login successful",
                 "token", token,
                 "role", user.getRole().name(),
-                "name", user.getName()
+                "name", user.getName(),
+                "restaurantName", restaurantName != null ? restaurantName : ""
         );
     }
 }
