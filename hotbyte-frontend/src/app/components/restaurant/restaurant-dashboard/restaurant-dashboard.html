@@ -140,18 +140,53 @@
 
   <div class="modal-card profile-modal">
 
-    <h2>Edit Profile</h2>
+    <h2 class="title">Edit Profile</h2>
 
-    <input [(ngModel)]="profileData.restaurantName" placeholder="Restaurant Name" />
-    <input [(ngModel)]="profileData.name" placeholder="Owner Name" />
-    <input [(ngModel)]="profileData.location" placeholder="Location" />
-    <input [(ngModel)]="profileData.phone" placeholder="Phone" />
-    <input [(ngModel)]="profileData.address" placeholder="Address" />
+    <div class="form-grid">
 
-    <button (click)="saveProfile()">Save</button>
-    <button (click)="showProfileModal = false">Cancel</button>
+      <div class="form-group full">
+        <label>Restaurant Name</label>
+        <input [(ngModel)]="profileData.restaurantName" />
+      </div>
+
+      <div class="form-group">
+        <label>Owner Name</label>
+        <input [(ngModel)]="profileData.name" />
+      </div>
+
+      <div class="form-group">
+        <label>Phone</label>
+        <input [(ngModel)]="profileData.phone" />
+      </div>
+
+      <div class="form-group full">
+        <label>Location</label>
+        <input [(ngModel)]="profileData.location" />
+      </div>
+
+      <div class="form-group full">
+        <label>Address</label>
+        <input [(ngModel)]="profileData.address" />
+      </div>
+
+      <div class="form-group full">
+        <label>Gender</label>
+        <select [(ngModel)]="profileData.gender">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="btn-group">
+      <button class="save-btn" (click)="saveProfile()">Save</button>
+      <button class="cancel-btn" (click)="showProfileModal = false">Cancel</button>
+    </div>
 
   </div>
 
 </div>
+
 </div>

@@ -3,13 +3,13 @@ package com.hotbyte.hotbyte.dto;
 import lombok.Data;
 
 @Data
-public class ProfileUpdateRequest {
+public class ProfileResponse {
 
     private String restaurantName;
-    private String location;   // restaurant address
+    private String location;
 
     private String name;
-    private String phone;      // one phone only
+    private String phone;
     private String address;
 
     private String gender;

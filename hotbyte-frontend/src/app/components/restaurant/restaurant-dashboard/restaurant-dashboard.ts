@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RestaurantService } from '../../../services/restaurant-service';
@@ -24,7 +24,14 @@ export class RestaurantDashboard implements OnInit {
 
   restaurantName = localStorage.getItem('restaurantName') || 'Restaurant';
   ownerName = localStorage.getItem('name') || 'User';
+  @HostListener('document:click', ['$event'])
+onDocumentClick(event: any) {
+  const clickedInside = event.target.closest('.profile-box') || event.target.closest('.profile');
 
+  if (!clickedInside) {
+    this.showProfile = false; 
+  }
+}
   constructor(private service: RestaurantService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
@@ -74,16 +81,19 @@ export class RestaurantDashboard implements OnInit {
     this.showModal = true;
   }
 
-  openProfileEdit() {
-  this.profileData = {
-    restaurantName: this.restaurantName,
-    name: this.ownerName,
-    location: '',
-    phone: '',
-    address: ''
-  };
+ openProfileEdit() {
+  this.service.getProfile().subscribe({
+    next: (res) => {
+      console.log("PROFILE ✅", res);
 
-  this.showProfileModal = true;
+      this.profileData = res;   // ✅ full DB data
+      this.showProfileModal = true;
+    },
+    error: (err) => {
+      console.log("PROFILE ERROR ❌", err);
+      alert("Failed to load profile");
+    }
+  });
 }
   openView(item: any) {
     this.viewMode = true;
@@ -174,22 +184,30 @@ export class RestaurantDashboard implements OnInit {
     window.location.href = '/login';
   }
   saveProfile() {
-  this.service.updateProfile(this.profileData).subscribe({
+
+  const payload = {
+    restaurantName: this.profileData.restaurantName,
+    location: this.profileData.location,
+    name: this.profileData.name,
+    phone: this.profileData.phone,
+    address: this.profileData.address,
+    gender: this.profileData.gender
+  };
+
+  this.service.updateProfile(payload).subscribe({
     next: () => {
       alert('Profile Updated ✅');
 
       // ✅ update UI instantly
-      this.restaurantName = this.profileData.restaurantName;
-      this.ownerName = this.profileData.name;
+      this.restaurantName = payload.restaurantName;
+      this.ownerName = payload.name;
 
       // ✅ persist data
-      localStorage.setItem('restaurantName', this.profileData.restaurantName);
-      localStorage.setItem('name', this.profileData.name);
+      localStorage.setItem('restaurantName', payload.restaurantName);
+      localStorage.setItem('name', payload.name);
 
       // ✅ close modal
       this.showProfileModal = false;
-
-      // ✅ optional UX improvement
       this.showProfile = false;
     },
     error: () => {

@@ -49,5 +49,14 @@ public class RestaurantController {
 
         return ResponseEntity.ok(restaurantService.updateProfile(request, email));
     }
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(Authentication authentication) {
+
+        String email = authentication.getName();
+
+        return ResponseEntity.ok(
+                restaurantService.getProfile(email)
+        );
+    }
 
 }

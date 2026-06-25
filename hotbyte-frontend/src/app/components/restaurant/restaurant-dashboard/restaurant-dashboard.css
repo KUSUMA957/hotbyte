@@ -124,26 +124,59 @@ body {
   width: 240px;
   background: white;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-  z-index: 10;
+  border-radius: 16px;
+  
+ box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  z-index: 100;
+  animation: fadeIn 0.25s ease;
+
 }
 
-.profile-box h3 {
-  font-size: 18px;
+.profile-modal {
+  max-width: 420px;
 }
 
-.profile-box p {
-  font-size: 13px;
+.profile-modal label {
+  font-size: 12px;
   color: #6b7280;
-  margin: 10px 0;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.profile-modal input,
+.profile-modal select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.profile-modal input:focus,
+.profile-modal select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  outline: none;
 }
 
 .profile-box button {
   width: 100%;
   margin-bottom: 10px;
 }
+.save-btn {
+  background: #2563eb;
+  color: white;
+}
 
+.cancel-btn {
+  background: #e5e7eb;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background: #d1d5db;
+}
 /* ================= WELCOME CARD ================= */
 .welcome-wrapper {
   display: flex;

@@ -1,6 +1,7 @@
 package com.hotbyte.hotbyte.service.impl;
 
 import com.hotbyte.hotbyte.dto.MenuRequest;
+import com.hotbyte.hotbyte.dto.ProfileResponse;
 import com.hotbyte.hotbyte.dto.ProfileUpdateRequest;
 import com.hotbyte.hotbyte.entity.Menu;
 import com.hotbyte.hotbyte.entity.Restaurant;
@@ -84,7 +85,6 @@ public class RestaurantServiceImpl implements RestaurantService {
         menuRepository.deleteById(id);
         return Map.of("message", "Deleted ✅");
     }
-
 public Map<String, String> updateProfile(ProfileUpdateRequest request, String email) {
 
     // ✅ get user
@@ -97,17 +97,43 @@ public Map<String, String> updateProfile(ProfileUpdateRequest request, String em
     // ✅ update restaurant
     restaurant.setRestaurantName(request.getRestaurantName());
     restaurant.setLocation(request.getLocation());
-    restaurant.setContactNumber(request.getContactNumber());
 
     // ✅ update user
     user.setName(request.getName());
     user.setPhone(request.getPhone());
     user.setAddress(request.getAddress());
+    user.setGender(request.getGender()); 
+
+    // ❌ DO NOT UPDATE
+    // user.setPassword(...)
+    // user.setCreatedAt(...)
+    // user.setEmail(...)
 
     restaurantRepository.save(restaurant);
     userRepository.save(user);
 
     return Map.of("message", "Profile updated successfully ✅");
 }
+public ProfileResponse getProfile(String email) {
 
+    // ✅ get user
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    // ✅ get restaurant
+    Restaurant restaurant = restaurantRepository.findByUser(user);
+
+    // ✅ prepare response
+    ProfileResponse response = new ProfileResponse();
+
+    response.setRestaurantName(restaurant.getRestaurantName());
+    response.setLocation(restaurant.getLocation());
+
+    response.setName(user.getName());
+    response.setPhone(user.getPhone());
+    response.setAddress(user.getAddress());
+    response.setGender(user.getGender());
+
+    return response;
+}
 }

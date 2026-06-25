@@ -27,8 +27,10 @@ export class RestaurantService {
     return this.http.delete(`${this.baseUrl}/menu/${id}`);
   }
   updateProfile(data: any) {
-  return this.http.put(`${this.baseUrl}/profile`, data);
-}
-
+    return this.http.put(`${this.baseUrl}/profile`, data);
+  }
+  getProfile(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/profile`);
+  }
 }
 
