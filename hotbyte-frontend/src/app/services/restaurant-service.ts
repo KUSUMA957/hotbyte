@@ -26,5 +26,9 @@ export class RestaurantService {
   deleteMenu(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/menu/${id}`);
   }
+  updateProfile(data: any) {
+  return this.http.put(`${this.baseUrl}/profile`, data);
+}
+
 }
 

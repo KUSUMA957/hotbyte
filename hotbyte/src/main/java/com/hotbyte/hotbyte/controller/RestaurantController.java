@@ -1,10 +1,13 @@
 package com.hotbyte.hotbyte.controller;
 
 import com.hotbyte.hotbyte.dto.MenuRequest;
+import com.hotbyte.hotbyte.dto.ProfileUpdateRequest;
 import com.hotbyte.hotbyte.entity.Menu;
 import com.hotbyte.hotbyte.repository.MenuRepository;
 import com.hotbyte.hotbyte.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +39,15 @@ public class RestaurantController {
         menuRepository.deleteById(id);
         return Map.of("message", "Menu deleted ✅");
     }
-    
+    @PutMapping("/profile")
+    public ResponseEntity<?> updateProfile(
+            @RequestBody ProfileUpdateRequest request,
+
+            Authentication authentication) {
+
+               String email = authentication.getName(); // ✅ same as principal
+
+        return ResponseEntity.ok(restaurantService.updateProfile(request, email));
+    }
+
 }

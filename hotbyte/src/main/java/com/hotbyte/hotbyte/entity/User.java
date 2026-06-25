@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hotbyte.hotbyte.dto.RegisterRequest;
 
 @Entity
@@ -27,6 +28,7 @@ public class User {
     private Role role;
     private LocalDateTime createdAt;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Restaurant restaurant;
 	
 }

@@ -1,6 +1,7 @@
 package com.hotbyte.hotbyte.service.impl;
 
 import com.hotbyte.hotbyte.dto.MenuRequest;
+import com.hotbyte.hotbyte.dto.ProfileUpdateRequest;
 import com.hotbyte.hotbyte.entity.Menu;
 import com.hotbyte.hotbyte.entity.Restaurant;
 import com.hotbyte.hotbyte.entity.User;
@@ -54,7 +55,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         Restaurant restaurant = restaurantRepository.findByUser(user);
 
-        return menuRepository.findByRestaurant(restaurant);
+        //return menuRepository.findByRestaurant(restaurant);
+        return menuRepository.findByRestaurantId(restaurant.getId());
     }
     // ✅ For user (public menu)
     @Override
@@ -82,5 +84,30 @@ public class RestaurantServiceImpl implements RestaurantService {
         menuRepository.deleteById(id);
         return Map.of("message", "Deleted ✅");
     }
+
+public Map<String, String> updateProfile(ProfileUpdateRequest request, String email) {
+
+    // ✅ get user
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    // ✅ get restaurant
+    Restaurant restaurant = restaurantRepository.findByUser(user);
+
+    // ✅ update restaurant
+    restaurant.setRestaurantName(request.getRestaurantName());
+    restaurant.setLocation(request.getLocation());
+    restaurant.setContactNumber(request.getContactNumber());
+
+    // ✅ update user
+    user.setName(request.getName());
+    user.setPhone(request.getPhone());
+    user.setAddress(request.getAddress());
+
+    restaurantRepository.save(restaurant);
+    userRepository.save(user);
+
+    return Map.of("message", "Profile updated successfully ✅");
+}
 
 }

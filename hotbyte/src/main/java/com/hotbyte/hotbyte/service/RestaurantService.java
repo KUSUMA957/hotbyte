@@ -1,6 +1,7 @@
 package com.hotbyte.hotbyte.service;
 
 import com.hotbyte.hotbyte.dto.MenuRequest;
+import com.hotbyte.hotbyte.dto.ProfileUpdateRequest;
 import com.hotbyte.hotbyte.entity.Menu;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public interface RestaurantService {
 	public List<Menu> getAllMenu();
 	public Menu updateMenu(Long id, MenuRequest request);
 	public Map<String, String> deleteMenu(Long id);
+	public Map<String, String> updateProfile(ProfileUpdateRequest request, String email);
 }
 
 

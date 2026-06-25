@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RestaurantService } from '../../../services/restaurant-service';
 import { FormsModule } from '@angular/forms';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-restaurant-dashboard',
   standalone: true,
@@ -18,13 +18,14 @@ export class RestaurantDashboard implements OnInit {
   isEdit = false;
   viewMode = false;
   showProfile = false;
-
+  showProfileModal = false;
+  profileData: any = {};
   formData: any = {};
 
   restaurantName = localStorage.getItem('restaurantName') || 'Restaurant';
   ownerName = localStorage.getItem('name') || 'User';
 
-  constructor(private service: RestaurantService) {}
+  constructor(private service: RestaurantService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.loadMenu();
@@ -36,7 +37,7 @@ export class RestaurantDashboard implements OnInit {
       
  console.log("MENU ✅:", res);
       this.menuList = res ? [...res] : [];
-
+      this.cd.detectChanges();
 },
     error: () => {
       this.menuList = [];
@@ -73,6 +74,17 @@ export class RestaurantDashboard implements OnInit {
     this.showModal = true;
   }
 
+  openProfileEdit() {
+  this.profileData = {
+    restaurantName: this.restaurantName,
+    name: this.ownerName,
+    location: '',
+    phone: '',
+    address: ''
+  };
+
+  this.showProfileModal = true;
+}
   openView(item: any) {
     this.viewMode = true;
     this.isEdit = false;
@@ -161,4 +173,29 @@ export class RestaurantDashboard implements OnInit {
     localStorage.clear();
     window.location.href = '/login';
   }
+  saveProfile() {
+  this.service.updateProfile(this.profileData).subscribe({
+    next: () => {
+      alert('Profile Updated ✅');
+
+      // ✅ update UI instantly
+      this.restaurantName = this.profileData.restaurantName;
+      this.ownerName = this.profileData.name;
+
+      // ✅ persist data
+      localStorage.setItem('restaurantName', this.profileData.restaurantName);
+      localStorage.setItem('name', this.profileData.name);
+
+      // ✅ close modal
+      this.showProfileModal = false;
+
+      // ✅ optional UX improvement
+      this.showProfile = false;
+    },
+    error: () => {
+      alert('Update Failed ❌');
+    }
+  });
+}
+
 }

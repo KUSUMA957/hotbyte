@@ -7,5 +7,6 @@ import com.hotbyte.hotbyte.entity.Restaurant;
 
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 	List<Menu> findByRestaurant(Restaurant restaurant);
+	List<Menu> findByRestaurantId(Long restaurantId);
 }
 
