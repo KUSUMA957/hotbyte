@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "menu")
 @Data
@@ -26,6 +28,7 @@ public class Menu {
     private Integer calories;
     private Boolean available;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
     private LocalDateTime createdAt;

@@ -11,9 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
+@Getter
+@Setter
+
 public class Order {
 
     @Id
@@ -27,6 +32,9 @@ public class Order {
 
     @ManyToOne
     private User user;
+
+@ManyToOne
+    private Address address;  // ✅ selected address
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
