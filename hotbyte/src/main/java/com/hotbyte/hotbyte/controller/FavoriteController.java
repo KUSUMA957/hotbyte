@@ -1,6 +1,7 @@
 package com.hotbyte.hotbyte.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -54,7 +55,7 @@ public class FavoriteController {
 
     // ✅ DELETE FAVORITE (SECURE VERSION)
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") Long id,
+    public Map<String, String> delete(@PathVariable("id") Long id,
                          Authentication authentication) {
 
         String email = authentication.getName();
@@ -62,6 +63,6 @@ public class FavoriteController {
 
         service.deleteByUser(id, user);   // ✅ secure delete
 
-        return "Deleted from favorites ✅";
+        return Map.of("message", "Deleted from favorites ✅");
     }
 }

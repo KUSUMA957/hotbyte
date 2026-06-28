@@ -1,0 +1,58 @@
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* ✅ EMPTY */
+.empty {
+  color: gray;
+  font-size: 14px;
+}
+
+/* ✅ ROW */
+.fav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 12px;
+}
+
+/* ✅ CARD */
+.fav-card {
+  flex: 1;
+  padding: 12px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+/* ✅ TITLE */
+.title {
+  font-weight: 600;
+}
+
+/* ✅ LOCATION */
+.location {
+  font-size: 12px;
+  color: gray;
+}
+
+/* ✅ REMOVE BUTTON */
+.remove-btn {
+  margin-left: 10px;
+  background: red;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 10px;
+}

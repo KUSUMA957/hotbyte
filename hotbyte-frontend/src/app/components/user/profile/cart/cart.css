@@ -1,0 +1,79 @@
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* ✅ EMPTY */
+.empty {
+  color: gray;
+}
+
+/* ✅ ROW */
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 12px;
+}
+
+/* ✅ CARD */
+.cart-card {
+  flex: 1;
+  padding: 12px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+/* ✅ TITLE */
+.title {
+  font-weight: 600;
+}
+
+/* ✅ DETAILS */
+.details {
+  font-size: 13px;
+  color: gray;
+}
+
+/* ✅ REMOVE */
+.remove-btn {
+  margin-left: 10px;
+  background: red;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+/* ✅ SUMMARY */
+.summary {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ✅ TOTAL */
+.total {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* ✅ ORDER BUTTON */
+.order-btn {
+  background: green;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+}

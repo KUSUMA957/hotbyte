@@ -1,1 +1,40 @@
-<p>cart works!</p>
+<div class="card">
+
+  <div class="header">
+    🛒 Cart
+  </div>
+
+  <!-- ✅ EMPTY -->
+  <div *ngIf="cartItems.length === 0" class="empty">
+    Your cart is empty
+  </div>
+
+  <!-- ✅ ITEMS -->
+  <div *ngFor="let item of cartItems" class="cart-row">
+
+    <div class="cart-card">
+      <div class="title">{{ item.menu.itemName }}</div>
+      <div class="details">
+        ₹{{ item.menu.price }} × {{ item.quantity }}
+      </div>
+    </div>
+
+    <button class="remove-btn" (click)="removeItem(item.id)">
+      Remove
+    </button>
+
+  </div>
+
+  <!-- ✅ TOTAL -->
+  <div *ngIf="cartItems.length > 0" class="summary">
+
+    <div class="total">
+      Total: ₹{{ totalAmount }}
+    </div>
+
+    <button class="order-btn" (click)="placeOrder()">
+      Place Order
+    </button>
+
+  </div>
+</div>

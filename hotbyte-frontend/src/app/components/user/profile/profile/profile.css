@@ -2,3 +2,26 @@
   padding: 20px;
   background: #f5f6f8;
 }
+.logout-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.logout-btn {
+  background: #ff4d4f;
+  color: white;
+
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+
+  font-size: 14px;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  background: #e63e3e;
+}
