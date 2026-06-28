@@ -1,13 +1,18 @@
 package com.hotbyte.hotbyte.controller;
 
+import java.security.Principal;
 import java.util.List;
 import org.springframework.security.core.Authentication;
 import java.util.Map;
 import org.springframework.web.bind.annotation.*;
 
+import com.hotbyte.hotbyte.dto.UserProfileDTO;
+import com.hotbyte.hotbyte.entity.Address;
 import com.hotbyte.hotbyte.entity.Cart;
 import com.hotbyte.hotbyte.entity.Menu;
+import com.hotbyte.hotbyte.entity.User;
 import com.hotbyte.hotbyte.repository.CartRepository;
+import com.hotbyte.hotbyte.service.AddressService;
 import com.hotbyte.hotbyte.service.RestaurantService;
 import com.hotbyte.hotbyte.service.UserService;
 
@@ -19,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	 private final RestaurantService restaurantService;
 	 private final UserService userService;
+	 private final AddressService addressService;
 	 private final CartRepository cartRepository;
 	 @GetMapping("/menu")
 	 public List<Menu> getAllMenu() {
@@ -51,4 +57,24 @@ public class UserController {
 	    cart.setQuantity(quantity);
 	    return cartRepository.save(cart);
 	}
+	@GetMapping("/profile")
+	public UserProfileDTO getProfile(Authentication authentication) {
+
+	    String email = authentication.getName();
+	    User user = userService.findByEmail(email);
+
+	    Address selected = addressService.getSelectedAddress(user);
+
+	    UserProfileDTO dto = new UserProfileDTO();
+	    dto.setName(user.getName());
+	    dto.setEmail(user.getEmail());
+	    dto.setPhone(user.getPhone());
+
+	    if (selected != null) {
+	        dto.setAddress(selected.getAddressLine() + ", " + selected.getCity());
+	    }
+
+	    return dto;
+	}
+
 }
