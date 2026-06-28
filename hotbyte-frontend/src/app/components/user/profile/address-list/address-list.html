@@ -1,0 +1,63 @@
+<div class="card">
+
+  <!-- ✅ HEADER -->
+  <div class="header">
+    📍 Saved Addresses
+  </div>
+
+  <!-- ✅ ADD BUTTON (ONLY ONCE ✅) -->
+  <button class="add-btn" (click)="toggleForm()">
+    + Add Address
+  </button>
+
+  <!-- ✅ FORM (ONLY ONE ✅) -->
+  <div *ngIf="showForm" class="form">
+
+    <input [(ngModel)]="form.label" placeholder="Label (Home/Work)" />
+    <input [(ngModel)]="form.addressLine" placeholder="Address" />
+    <input [(ngModel)]="form.city" placeholder="City" />
+    <input [(ngModel)]="form.pincode" placeholder="Pincode" />
+
+    <div class="form-actions">
+      <button (click)="saveAddress()">Save</button>
+      <button (click)="resetForm()">Cancel</button>
+    </div>
+
+  </div>
+
+  <!-- ✅ EMPTY CASE -->
+  <div *ngIf="addresses?.length === 0" class="empty">
+    No saved addresses yet
+  </div>
+
+  <!-- ✅ ADDRESS LIST -->
+  <div *ngFor="let addr of addresses" class="address-row">
+
+    <!-- ✅ CARD -->
+    <div 
+      class="address-card"
+      [class.selected]="addr.selected"
+      (click)="selectAddress(addr.id)"
+    >
+
+      <div class="top">
+        <span class="label">{{ addr.label }}</span>
+        <span *ngIf="addr.selected" class="selected-tag">Selected</span>
+      </div>
+
+      <div class="line">{{ addr.addressLine }}</div>
+      <div class="city">{{ addr.city }} - {{ addr.pincode }}</div>
+
+    </div>
+
+    <!-- ✅ ACTIONS -->
+    <div class="actions">
+
+      <button class="edit-btn" (click)="editAddress(addr)">Edit</button>
+      <button class="delete-btn" (click)="deleteAddress(addr.id)">Delete</button>
+
+    </div>
+
+  </div>
+
+</div>

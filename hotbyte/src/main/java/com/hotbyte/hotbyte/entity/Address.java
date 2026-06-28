@@ -2,6 +2,7 @@ package com.hotbyte.hotbyte.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Address {
 
 @NotBlank
 private String label;
-
+@Column(name = "address_line")
 @NotBlank
 private String addressLine;
 
@@ -38,6 +39,7 @@ private String pincode;
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+    @Column(name = "is_selected")
     private boolean isSelected;
 
 

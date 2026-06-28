@@ -1,6 +1,7 @@
 package com.hotbyte.hotbyte.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -81,7 +82,7 @@ public class AddressController {
         service.delete(id);
     }
     @PutMapping("/select/{id}")
-    public String selectAddress(@PathVariable("id") Long id,
+    public Map<String, String> selectAddress(@PathVariable("id") Long id,
                                 Authentication authentication) {
 
         String email = authentication.getName();
@@ -89,6 +90,6 @@ public class AddressController {
 
         service.setSelectedAddress(id, user);
 
-        return "Address selected ✅";
+        return Map.of("message", "Address selected ✅");
     }
 }

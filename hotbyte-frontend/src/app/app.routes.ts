@@ -5,6 +5,7 @@ import { UserDashboard } from './components/user/user-dashboard/user-dashboard';
 import { RestaurantDashboard } from './components/restaurant/restaurant-dashboard/restaurant-dashboard';
 import { authGuard } from './guards/auth-guard';
 import { AdminComponent } from '../app/components/admin-component/admin-component'
+import { UserProfileComponent } from '../app/components/user/profile/profile/profile'
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -12,4 +13,6 @@ export const routes: Routes = [
   { path: 'dashboard', component: UserDashboard, canActivate: [authGuard], data: {roles:['USER']} },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard], data: {roles:['ADMIN']} },
   { path: 'restaurant', component: RestaurantDashboard, canActivate: [authGuard], data: {roles:['RESTAURANT']} },
+  { path: 'profile', component: UserProfileComponent, canActivate: [authGuard], data: { roles: ['USER'] }
+ }
   ];

@@ -1,7 +1,31 @@
+<div class="header">
 
- <div class="container">
-      <div class="card">
-        <h2>User Dashboard 👤</h2>
-        <button (click)="logout()">Logout</button>
+  <!-- ✅ LEFT: ADDRESS + USER -->
+  <div class="left-section">
+    <div class="location">
+      <span class="icon">📍</span>
+      <div>
+        <div class="address">{{ address || 'Select Address' }}</div>
+        <div class="username">{{ userName }}</div>
       </div>
     </div>
+  </div>
+
+  <!-- ✅ CENTER: SEARCH BAR -->
+  <div class="center-section">
+    <input
+      type="text"
+      placeholder="Search for food, restaurants..."
+      [(ngModel)]="searchText"
+    />
+  </div>
+
+  <!-- ✅ RIGHT: PROFILE ICON -->
+  <div class="right-section" (click)="openProfile()">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+      alt="profile"
+    />
+  </div>
+
+</div>
