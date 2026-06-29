@@ -1,25 +1,46 @@
-<div class="container">
+<!-- ✅ FULL WIDTH HEADER -->
+<div class="sticky-header">
 
-  <!-- ✅ STICKY HEADER -->
-  <div class="sticky-header">
+  <div class="header-inner">
 
-    <div class="header-top">
-      <button class="back-btn" (click)="back()">←</button>
+    <div class="header-row">
 
-      <div>
-        <h2>{{ restaurantName }}</h2>
-        <div class="meta">
-          ⭐ {{ rating }} • ⏱ {{ deliveryTime }} mins • 📍 {{ location }}
+      <!-- ✅ LEFT: Restaurant Info -->
+      <div class="header-left">
+
+        <button class="back-btn" (click)="back()">←</button>
+
+        <div class="details">
+          <h2>{{ restaurantName }}</h2>
+          <div class="meta">
+            ⭐ {{ rating }} • ⏱ {{ deliveryTime }} mins • 📍 {{ location }}
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="search">
-      <input [(ngModel)]="searchText" placeholder="🔍 Search dishes..." />
+      </div>
+
+      <!-- ✅ RIGHT: SEARCH -->
+      <div class="header-right">
+
+        <div class="search-box">
+          <span class="icon">🔍</span>
+          <input 
+            [(ngModel)]="searchText"
+            placeholder="Search dishes..."
+          />
+        </div>
+
+      </div>
+
     </div>
 
   </div>
 
+</div>
+
+<div class="container">
+
+  
   <!-- ✅ MENU -->
   <div class="menu">
 
