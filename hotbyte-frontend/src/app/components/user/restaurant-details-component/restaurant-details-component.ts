@@ -170,4 +170,22 @@ updateCart() {
       this.cdr.detectChanges(); 
 
 }
+
+getCategoryImage(category: string): string {
+
+  const normalized = category.toLowerCase();
+
+  const map: any = {
+    'starter': 'starter.png',
+    'starters': 'starter.png',
+    'dessert': 'desserts.png',
+    'desserts': 'desserts.png'
+  };
+
+  const fileName = map[normalized] || normalized.replace(/\s+/g, '-') + '.png';
+
+  return '/assets/categories/' + fileName;
+}
+
+
 }
