@@ -4,6 +4,7 @@ import com.hotbyte.hotbyte.dto.MenuRequest;
 import com.hotbyte.hotbyte.dto.ProfileResponse;
 import com.hotbyte.hotbyte.dto.ProfileUpdateRequest;
 import com.hotbyte.hotbyte.entity.Menu;
+import com.hotbyte.hotbyte.entity.MenuResponse;
 import com.hotbyte.hotbyte.entity.Restaurant;
 import com.hotbyte.hotbyte.entity.User;
 import com.hotbyte.hotbyte.repository.MenuRepository;
@@ -61,8 +62,34 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
     // ✅ For user (public menu)
     @Override
-    public List<Menu> getAllMenu() {
-        return menuRepository.findAll();
+    public List<MenuResponse> getAllMenu() {
+
+        List<Menu> menuList = menuRepository.findAll();
+
+        return menuList.stream().map(menu -> {
+
+            Restaurant restaurant = menu.getRestaurant();
+
+            return MenuResponse.builder()
+                    .id(menu.getId())
+                    .itemName(menu.getItemName())
+                    .description(menu.getDescription())
+                    .price(menu.getPrice())
+                    .category(menu.getCategory())
+                    .type(menu.getType())
+                    .rating(menu.getRating())
+                    .servingSize(menu.getServingSize())
+                    .nutritionalInfo(menu.getNutritionalInfo())
+                    .calories(menu.getCalories())
+                    .available(menu.getAvailable())
+
+                    // ✅ NEW DATA
+                    .restaurantId(restaurant != null ? restaurant.getId() : null)
+                    .restaurantName(restaurant != null ? restaurant.getRestaurantName() : null)
+                    .location(restaurant != null ? restaurant.getLocation() : null)
+
+                    .build();
+        }).toList();
     }
     @Override
     public Menu updateMenu(Long id, MenuRequest request) {

@@ -1,0 +1,30 @@
+<div class="mind-section">
+
+  <h2>What's on your mind?</h2>
+
+  <div class="scroll-container">
+
+    <div
+      class="category-card"
+      *ngFor="let cat of categories"
+      [class.active]="selectedCategory === cat"
+      (click)="selectCategory(cat)"
+    >
+
+      <!-- ✅ IMAGE -->
+      
+<img 
+  [src]="getCategoryImage(cat)"
+  alt="category"
+  class="category-image"
+/>
+
+
+      <!-- ✅ TEXT -->
+      <div class="label">{{ cat }}</div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,65 @@
+.mind-section {
+  padding: 15px 24px;
+  background: white;
+}
+
+.mind-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+/* ✅ SCROLL */
+.scroll-container {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* ✅ CARD */
+.category-card {
+  min-width: 85px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* ✅ IMAGE */
+.category-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background: #f7f7f7;
+}
+
+/* ✅ TEXT */
+.label {
+  font-size: 13px;
+  margin-top: 6px;
+  color: #444;
+  font-weight: 500;
+}
+
+/* ✅ HOVER */
+.category-card:hover {
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* ✅ ACTIVE */
+.category-card.active .category-image {
+  border: 3px solid #fc8019;
+  transform: scale(1.07);
+}
+
+.category-card.active .label {
+  color: #fc8019;
+  font-weight: bold;
+}

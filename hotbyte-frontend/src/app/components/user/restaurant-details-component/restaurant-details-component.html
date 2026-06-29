@@ -1,0 +1,110 @@
+<div class="container">
+
+  <!-- ✅ STICKY HEADER -->
+  <div class="sticky-header">
+
+    <div class="header-top">
+      <button class="back-btn" (click)="back()">←</button>
+
+      <div>
+        <h2>{{ restaurantName }}</h2>
+        <div class="meta">
+          ⭐ {{ rating }} • ⏱ {{ deliveryTime }} mins • 📍 {{ location }}
+        </div>
+      </div>
+    </div>
+
+    <div class="search">
+      <input [(ngModel)]="searchText" placeholder="🔍 Search dishes..." />
+    </div>
+
+  </div>
+
+  <!-- ✅ MENU -->
+  <div class="menu">
+
+    <ng-container *ngFor="let category of (filteredItems | keyvalue)">
+
+      <div class="category-section" [attr.id]="category.key">
+
+        <h3>{{ category.key }}</h3>
+
+        <!-- ✅ GRID -->
+        <div class="items-grid">
+
+          <div class="item-card" *ngFor="let item of category.value">
+
+            <!-- ✅ IMAGE -->
+            <div class="image-container">
+              <img src="https://static.vecteezy.com/system/resources/previews/033/385/034/non_2x/various-foods-including-pasta-tomatoes-and-cheese-on-a-table-ai-generated-free-photo.jpg" />
+            </div>
+
+            <!-- ✅ CONTENT -->
+            <div class="content">
+
+              <div class="name">{{ item.itemName }}</div>
+
+              <div class="price">₹{{ item.price }}</div>
+
+              <div class="desc">{{ item.description }}</div>
+
+              <div class="extra" *ngIf="item.expanded">
+                🍽 {{ item.servingSize }} • 🔥 {{ item.calories }}
+              </div>
+
+            </div>
+
+            <!-- ✅ FOOTER -->
+            <div class="card-footer">
+
+              <button *ngIf="!item.qty"
+                      (click)="addItem(item)">
+                ADD
+              </button>
+
+              <div class="qty-box" *ngIf="item.qty">
+                <span (click)="decrease(item)">-</span>
+                <span>{{ item.qty }}</span>
+                <span (click)="increase(item)">+</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </ng-container>
+
+  </div>
+
+  <!-- ✅ FLOATING CATEGORY BUTTON -->
+  <button class="floating-btn" (click)="toggleCategories()">☰</button>
+
+  <div class="category-popup" *ngIf="showCategories">
+    <div 
+      *ngFor="let category of (filteredItems | keyvalue)"
+      (click)="scrollToCategory(category.key.toString())"
+      class="popup-item">
+      {{ category.key }}
+    </div>
+  </div>
+
+  <!-- ✅ PERFECT CART BAR -->
+  <div class="cart-bar" *ngIf="cartCount > 0">
+
+    <div class="cart-info">
+      🛒 {{ cartCount }} item{{ cartCount > 1 ? 's' : '' }}
+      <span class="dot">•</span>
+      ₹{{ cartTotal }}
+    </div>
+
+    <button class="view-cart-btn">
+      View Cart →
+    </button>
+
+  </div>
+
+</div>

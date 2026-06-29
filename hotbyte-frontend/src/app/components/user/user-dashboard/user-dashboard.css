@@ -82,3 +82,100 @@
 .right-section img:hover {
   transform: scale(1.1);
 }
+.items-section {
+  padding: 20px;
+}
+
+/* ✅ ITEM CARD */
+.item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+  background: white;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* LEFT */
+.left .name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.left .category {
+  font-size: 13px;
+  color: #666;
+}
+
+/* RIGHT IMAGE */
+.right img {
+  width: 70px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.cards-section {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+/* ✅ CARD */
+.restaurant-card {
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+
+  background: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ✅ IMAGE */
+.card-image {
+  height: 140px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* ✅ OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+/* ✅ CONTENT */
+.card-content {
+  padding: 12px;
+}
+
+/* ✅ NAME */
+.name {
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+}
+
+/* ✅ META */
+.meta {
+  font-size: 13px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.dot {
+  margin: 0 5px;
+}

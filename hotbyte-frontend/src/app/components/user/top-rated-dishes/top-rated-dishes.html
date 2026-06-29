@@ -1,0 +1,41 @@
+<div class="top-rated-section">
+
+  <h2>🔥 Top Rated Dishes Near You</h2>
+
+  <div class="scroll-container">
+
+    <div 
+      class="card"
+      *ngFor="let res of restaurants"
+      (click)="openRestaurant(res.restaurantId)"
+    >
+
+      <!-- ✅ BIG IMAGE (FULL WIDTH) -->
+      <img 
+        src="https://img.freepik.com/premium-photo/assorted-international-dishes-dark-tabletop_661495-63054.jpg" 
+        alt="food"
+        class="food-image"
+      />
+
+      <!-- ✅ CONTENT -->
+      <div class="info">
+
+        <div class="name">{{ res.restaurantName }}</div>
+
+        <div class="dish">
+          Top Dish: {{ res.itemName }}
+        </div>
+
+        <div class="meta">
+          ⭐ {{ res.rating }}
+          <span class="dot">•</span>
+          📍 {{ res.location }}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

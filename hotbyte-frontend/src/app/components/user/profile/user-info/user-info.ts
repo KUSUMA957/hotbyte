@@ -3,6 +3,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../../../../services/user-service'
 @Component({
   selector: 'app-user-info',
+  standalone: true,
   imports: [],
   templateUrl: './user-info.html',
   styleUrl: './user-info.css',

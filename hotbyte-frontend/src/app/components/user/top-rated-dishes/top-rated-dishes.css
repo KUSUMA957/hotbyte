@@ -1,0 +1,87 @@
+.top-rated-section {
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* ✅ SCROLL */
+.scroll-container {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 5px;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* ✅ CARD */
+.card {
+  min-width: 260px;
+  max-width: 260px;
+
+  background: #fff;
+  border-radius: 16px;
+
+  overflow: hidden;
+  cursor: pointer;
+
+  transition: 0.3s;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* ✅ HOVER EFFECT */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ✅ IMAGE (IMPORTANT CHANGE) */
+.food-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+/* ✅ CONTENT */
+.info {
+  padding: 14px;
+}
+
+/* ✅ NAME */
+.name {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+/* ✅ DISH */
+.dish {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* ✅ META */
+.meta {
+  font-size: 13px;
+  color: #444;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ✅ DOT */
+.dot {
+  color: #888;
+}

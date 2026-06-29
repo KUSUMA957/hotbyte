@@ -10,6 +10,7 @@ import com.hotbyte.hotbyte.dto.UserProfileDTO;
 import com.hotbyte.hotbyte.entity.Address;
 import com.hotbyte.hotbyte.entity.Cart;
 import com.hotbyte.hotbyte.entity.Menu;
+import com.hotbyte.hotbyte.entity.MenuResponse;
 import com.hotbyte.hotbyte.entity.User;
 import com.hotbyte.hotbyte.repository.CartRepository;
 import com.hotbyte.hotbyte.service.AddressService;
@@ -27,8 +28,8 @@ public class UserController {
 	 private final AddressService addressService;
 	 private final CartRepository cartRepository;
 	 @GetMapping("/menu")
-	 public List<Menu> getAllMenu() {
-	   return restaurantService.getAllMenu();
+	 public List<MenuResponse> getAllMenu() {
+	     return restaurantService.getAllMenu();
 	 }
 	@GetMapping("/test")
 	public Map<String, String> test() {

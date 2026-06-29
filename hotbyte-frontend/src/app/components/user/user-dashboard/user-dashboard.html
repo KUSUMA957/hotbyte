@@ -29,3 +29,52 @@
   </div>
 
 </div>
+<div>
+  <app-top-rated-dishes></app-top-rated-dishes>
+</div>
+
+<!-- ✅ WHAT’S ON YOUR MIND -->
+<app-category-scroll-component
+  [categories]="categoriesList"
+  [selectedCategory]="selectedCategory"
+  (categorySelected)="selectCategory($any($event))">
+</app-category-scroll-component>
+
+<!-- ✅ FILTERED RESULTS BELOW -->
+<div class="items-section">
+
+ <div class="cards-section" *ngIf="filteredRestaurants.length">
+
+  <div 
+    class="restaurant-card"
+    *ngFor="let res of filteredRestaurants"
+    (click)="openRestaurant(res.restaurantId)"
+  >
+
+    <!-- ✅ IMAGE -->
+    <div 
+      class="card-image"
+      [style.backgroundImage]="'url(' + getCategoryImage(res.category) + ')'"
+    >
+      <div class="overlay"></div>
+    </div>
+
+    <!-- ✅ DETAILS -->
+    <div class="card-content">
+
+      <div class="name">{{ res.restaurantName }}</div>
+
+      <div class="meta">
+        ⭐ {{ res.rating }}
+        <span class="dot">•</span>
+        ⏱ {{ res.deliveryTime }} mins
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+</div>
