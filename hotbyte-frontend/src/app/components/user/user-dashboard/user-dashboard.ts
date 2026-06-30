@@ -298,11 +298,11 @@ toggleFavorite(event: Event, restaurant: any) {
   }
 }
 
-
 applySearch() {
 
   const text = this.searchText.toLowerCase().trim();
 
+  // ✅ If empty → show all
   if (!text) {
     this.displayedRestaurants = [...this.allRestaurants];
     return;
@@ -310,16 +310,21 @@ applySearch() {
 
   this.displayedRestaurants = this.allRestaurants.filter(res => {
 
-    // ✅ Match restaurant name
-    const nameMatch = res.restaurantName.toLowerCase().includes(text);
+    // ✅ 1. Restaurant name match
+    const nameMatch =
+      res.restaurantName.toLowerCase().includes(text);
 
-    // ✅ Match items under that restaurant
-    const itemsMatch = this.allItems.some(item =>
+    // ✅ 2. Item name OR category match
+    const itemMatch = this.allItems.some(item =>
       item.restaurantId === res.restaurantId &&
-      item.itemName.toLowerCase().includes(text)
+      (
+        item.itemName.toLowerCase().includes(text)   
+        ||
+        item.category.toLowerCase().includes(text)   
+      )
     );
 
-    return nameMatch || itemsMatch;
+    return nameMatch || itemMatch;
   });
 
   this.cdr.detectChanges();
