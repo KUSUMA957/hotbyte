@@ -102,32 +102,42 @@
   <!-- ✅ GRID -->
   <div class="restaurant-grid">
 
-    <div 
-      class="restaurant-card"
-      *ngFor="let res of displayedRestaurants"
-      (click)="openRestaurant(res.restaurantId)"
-    >
+   <div
+  class="restaurant-card"
+  *ngFor="let res of displayedRestaurants"
+  (click)="openRestaurant(res.restaurantId)"
+>
 
-      <!-- ✅ IMAGE -->
-      <img src="/assets/categories/all.png" />
+  <!-- ✅ IMAGE -->
+  <div class="card-image">
 
-      <!-- ✅ NAME -->
-      <div class="name">{{ res.restaurantName }}</div>
+    <img [src]="getCategoryImage('all')" />
 
-      <!-- ✅ META -->
-      <div class="meta">
-        ⭐ {{ res.rating }}
-        <span>•</span>
-        {{ res.deliveryTime }} mins
-      </div>
-
-      <!-- ✅ LOCATION -->
-      <div class="location">
-        📍 {{ res.location }}
-      </div>
-
+    <!-- ✅ ❤️ FAVORITE -->
+    <div class="heart"
+         (click)="toggleFavorite($event, res)"
+         [class.active]="favorites.has(res.restaurantId)">
+      ♥
     </div>
 
+  </div>
+
+  <!-- ✅ NAME -->
+  <div class="name">{{ res.restaurantName }}</div>
+
+  <!-- ✅ META -->
+  <div class="meta">
+    ⭐ {{ res.rating }}
+    <span>•</span>
+    {{ res.deliveryTime }} mins
+  </div>
+
+  <!-- ✅ LOCATION -->
+  <div class="location">
+    📍 {{ res.location }}
+  </div>
+
+</div>
   </div>
 </div>
 <footer class="footer">

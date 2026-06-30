@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Favorites implements OnInit {
 
-  favorites: any[] = [];
+  favoriteRestaurants: any[] = [];
   baseUrl = 'http://localhost:5489/api/user/favorite';
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
@@ -20,18 +20,29 @@ export class Favorites implements OnInit {
   }
 
   // ✅ Load favorites
-  loadFavorites() {
-    this.http.get<any[]>(this.baseUrl).subscribe({
-      next: (res) => {
-        console.log("Favorites:", res);
-        this.favorites = res;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error fetching favorites', err);
-      }
-    });
-  }
+
+loadFavorites() {
+  this.http.get<any[]>(this.baseUrl).subscribe({
+    next: (res) => {
+
+      // ✅ REMOVE DUPLICATES USING restaurant.id
+      this.favoriteRestaurants = res.filter(
+        (value, index, self) =>
+          index === self.findIndex(
+            v => v.restaurant.id === value.restaurant.id   // ✅ FIX HERE
+          )
+      );
+
+      this.cdr.detectChanges();
+    },
+
+    error: (err) => {
+      console.error('Error fetching favorites', err);
+    }
+  });
+}
+
+
 
   // ✅ Remove from favorites
   removeFavorite(id: number) {

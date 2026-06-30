@@ -27,8 +27,11 @@ allItems: any[] = [];
 filteredItems: any[] = [];
 allRestaurants: any[] = [];
 displayedRestaurants: any[] = [];
-
 sortOption = 'default';
+// ✅ FAVORITES STATE
+favorites: Set<number> = new Set();
+favoriteMap: Map<number, number[]> = new Map();
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -54,6 +57,7 @@ sortOption = 'default';
     // ✅ Initial API call
     this.userService.getProfile();
     this.loadMenu();
+    this.loadFavorites();
   }
 
   // ✅ Navigate to profile page
@@ -201,4 +205,75 @@ sortRestaurants(option: string) {
       this.displayedRestaurants = [...this.allRestaurants];
   }
 }
+
+
+
+// ✅ LOAD FAVORITES (SOURCE OF TRUTH)
+loadFavorites() {
+  this.http.get<any[]>('http://localhost:5489/api/user/favorite')
+    .subscribe((res: any[]) => {
+
+      this.favorites.clear();
+      this.favoriteMap.clear();
+
+      res.forEach(fav => {
+
+        const restaurantId = fav.restaurant.id; // ✅ FIX
+
+        this.favorites.add(restaurantId);
+
+        if (!this.favoriteMap.has(restaurantId)) {
+          this.favoriteMap.set(restaurantId, []);
+        }
+
+        this.favoriteMap.get(restaurantId)!.push(fav.id);
+      });
+
+      this.cdr.detectChanges();
+    });
+}
+toggleFavorite(event: Event, restaurant: any) {
+
+  event.stopPropagation();
+
+  const restaurantId = restaurant.restaurantId;
+
+  if (restaurant.loading) return;
+  restaurant.loading = true;
+
+  if (this.favorites.has(restaurantId)) {
+
+    // ✅ REMOVE ALL
+    const ids = this.favoriteMap.get(restaurantId) || [];
+
+    const deleteCalls = ids.map(id =>
+      this.http.delete(
+        `http://localhost:5489/api/user/favorite/${id}`,
+        { responseType: 'text' as 'json' }
+      ).toPromise()
+    );
+
+    Promise.all(deleteCalls).then(() => {
+
+      this.loadFavorites();   // ✅ refresh from DB
+      restaurant.loading = false;
+
+    });
+
+  } else {
+
+    // ✅ ADD
+    this.http.post(
+      `http://localhost:5489/api/user/favorite/${restaurantId}`,
+      {},
+      { responseType: 'text' as 'json' }
+    ).subscribe(() => {
+
+      this.loadFavorites();   // ✅ refresh from DB
+      restaurant.loading = false;
+
+    });
+  }
+}
+
 }

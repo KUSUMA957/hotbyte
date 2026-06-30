@@ -5,12 +5,12 @@
   </div>
 
   <!-- ✅ EMPTY -->
-  <div *ngIf="favorites.length === 0" class="empty">
+  <div *ngIf="favoriteRestaurants.length === 0" class="empty">
     No favorite restaurants yet
   </div>
 
   <!-- ✅ LIST -->
-  <div *ngFor="let fav of favorites" class="fav-row">
+  <div *ngFor="let fav of favoriteRestaurants" class="fav-row">
 
     <div class="fav-card">
 

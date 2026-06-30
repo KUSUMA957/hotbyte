@@ -349,3 +349,49 @@ font-size: 15px;       /* ✅ reduced */
     grid-template-columns: 1fr;
   }
 }
+.card-image {
+  position: relative;
+}
+
+.card-image img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ✅ HEART */
+.heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 36px;
+  height: 36px;
+
+  background: white;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+
+  cursor: pointer;
+  transition: 0.2s;
+
+  color: #ccc;   /* ✅ default */
+}
+
+/* ✅ ACTIVE */
+.heart.active {
+  color: #ff4d4f;   /* ✅ proper red */
+  font-weight: bold;
+}
+
+.heart:hover {
+  transform: scale(1.1);
+}
+
+
