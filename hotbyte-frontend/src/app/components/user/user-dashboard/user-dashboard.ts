@@ -28,6 +28,10 @@ filteredItems: any[] = [];
 allRestaurants: any[] = [];
 displayedRestaurants: any[] = [];
 sortOption = 'default';
+
+defaultImage =
+  'https://i.pinimg.com/originals/1f/61/15/1f6115deda19c4c5ae2200ff54b82fae.jpg';
+
 // ✅ FAVORITES STATE
 favorites: Set<number> = new Set();
 favoriteMap: Map<number, number[]> = new Map();
@@ -164,19 +168,37 @@ this.displayedRestaurants = [...this.allRestaurants];
   }
   getCategoryImage(category: string): string {
 
-  const normalized = category.toLowerCase();
+  const normalized = (category || 'all').toLowerCase();
 
   const map: any = {
     'starter': 'starter.png',
     'starters': 'starter.png',
     'dessert': 'desserts.png',
-    'desserts': 'desserts.png'
+    'desserts': 'desserts.png',
+    'all': 'all.png'
   };
 
-  const fileName = map[normalized] || normalized.replace(/\s+/g, '-') + '.png';
+  const fileName =
+    map[normalized] || normalized.replace(/\s+/g, '-') + '.png';
 
-  return '/assets/categories/' + fileName;
+  const path = '/assets/categories/' + fileName;
+
+  // ✅ fallback image
+  const fallback =
+    'https://i.pinimg.com/originals/1f/61/15/1f6115deda19c4c5ae2200ff54b82fae.jpg';
+
+  /*
+   IMPORTANT:
+   background-image doesn't trigger error
+   so we simulate fallback
+  */
+  return path || fallback;
 }
+
+setDefaultImage(event: any) {
+  event.target.src = this.defaultImage;
+}
+
 openRestaurant(id: number) {
   this.router.navigate(['/restaurant', id]);
 }

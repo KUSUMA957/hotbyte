@@ -34,6 +34,9 @@ cartMap: Map<number, any> = new Map();
 cartCount = 0;
 cartTotal = 0;
 
+defaultImage =
+  'https://i.pinimg.com/originals/1f/61/15/1f6115deda19c4c5ae2200ff54b82fae.jpg';
+
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -329,5 +332,9 @@ syncQtyWithUI() {
   this.updateCartBar();
 }
 
+
+setDefaultImage(event: any) {
+  event.target.src = this.defaultImage;
+}
 
 }

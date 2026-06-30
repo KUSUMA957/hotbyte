@@ -15,6 +15,7 @@
       
 <img 
   [src]="getCategoryImage(cat)"
+  (error)="setDefaultImage($event)"
   alt="category"
   class="category-image"
 />

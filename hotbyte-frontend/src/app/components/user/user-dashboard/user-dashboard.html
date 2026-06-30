@@ -53,12 +53,17 @@
   >
 
     <!-- ✅ IMAGE -->
-    <div 
-      class="card-image"
-      [style.backgroundImage]="'url(' + getCategoryImage(res.category) + ')'"
-    >
-      <div class="overlay"></div>
-    </div>
+   <div class="card-image">
+
+  <img
+    [src]="getCategoryImage(res.category)"
+    (error)="setDefaultImage($event)"
+    class="card-img"
+  />
+
+  <div class="overlay"></div>
+
+</div>
 
     <!-- ✅ DETAILS -->
     <div class="card-content">

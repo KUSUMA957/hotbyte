@@ -9,6 +9,9 @@ import { CommonModule } from '@angular/common';
 })
 export class CategoryScrollComponent {
   
+defaultImage =
+  'https://i.pinimg.com/originals/1f/61/15/1f6115deda19c4c5ae2200ff54b82fae.jpg';
+
   @Input() categories: string[] = [];
   @Input() selectedCategory = 'All';
 
@@ -17,6 +20,11 @@ export class CategoryScrollComponent {
   selectCategory(cat: string) {
     this.categorySelected.emit(cat);
   }
+  
+setDefaultImage(event: any) {
+  event.target.src = this.defaultImage;
+}
+
  getCategoryImage(category: string): string {
 
   const normalized = category.toLowerCase();
