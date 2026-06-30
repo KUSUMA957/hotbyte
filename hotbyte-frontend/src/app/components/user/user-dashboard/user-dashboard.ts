@@ -276,4 +276,30 @@ toggleFavorite(event: Event, restaurant: any) {
   }
 }
 
+
+applySearch() {
+
+  const text = this.searchText.toLowerCase().trim();
+
+  if (!text) {
+    this.displayedRestaurants = [...this.allRestaurants];
+    return;
+  }
+
+  this.displayedRestaurants = this.allRestaurants.filter(res => {
+
+    // ✅ Match restaurant name
+    const nameMatch = res.restaurantName.toLowerCase().includes(text);
+
+    // ✅ Match items under that restaurant
+    const itemsMatch = this.allItems.some(item =>
+      item.restaurantId === res.restaurantId &&
+      item.itemName.toLowerCase().includes(text)
+    );
+
+    return nameMatch || itemsMatch;
+  });
+
+  this.cdr.detectChanges();
+}
 }
