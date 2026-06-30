@@ -7,11 +7,11 @@ import { HttpClient } from '@angular/common/http';
 import { TopRatedDishes} from '../top-rated-dishes/top-rated-dishes';
 import { CategoryScrollComponent } from '../category-scroll-component/category-scroll-component'
 import { ChangeDetectorRef } from '@angular/core';
-
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, TopRatedDishes, CategoryScrollComponent],
+  imports: [CommonModule, FormsModule, RouterModule, TopRatedDishes, CategoryScrollComponent],
   templateUrl: './user-dashboard.html',
   styleUrls: ['./user-dashboard.css']
 })
@@ -25,6 +25,10 @@ selectedCategory = 'All';
 filteredRestaurants: any[] = [];
 allItems: any[] = [];
 filteredItems: any[] = [];
+allRestaurants: any[] = [];
+displayedRestaurants: any[] = [];
+
+sortOption = 'default';
   constructor(
     private userService: UserService,
     private router: Router,
@@ -79,6 +83,24 @@ filteredItems: any[] = [];
         ];
 
         this.applyFilter();
+        const map = new Map<number, any>();
+
+this.allItems.forEach(item => {
+  if (!map.has(item.restaurantId)) {
+    map.set(item.restaurantId, {
+      restaurantId: item.restaurantId,
+      restaurantName: item.restaurantName,
+      rating: item.rating,
+      location: item.location,
+      price: item.price,
+      deliveryTime: Math.floor(Math.random() * 20) + 20
+    });
+  }
+});
+
+this.allRestaurants = Array.from(map.values());
+this.displayedRestaurants = [...this.allRestaurants];
+
         this.cdr.detectChanges();
       });
   }
@@ -153,5 +175,30 @@ filteredItems: any[] = [];
 }
 openRestaurant(id: number) {
   this.router.navigate(['/restaurant', id]);
+}
+sortRestaurants(option: string) {
+  this.sortOption = option;
+
+  switch(option) {
+
+    case 'rating':
+      this.displayedRestaurants.sort((a, b) => b.rating - a.rating);
+      break;
+
+    case 'delivery':
+      this.displayedRestaurants.sort((a, b) => a.deliveryTime - b.deliveryTime);
+      break;
+
+    case 'lowToHigh':
+      this.displayedRestaurants.sort((a, b) => a.price - b.price);
+      break;
+
+    case 'highToLow':
+      this.displayedRestaurants.sort((a, b) => b.price - a.price);
+      break;
+
+    default:
+      this.displayedRestaurants = [...this.allRestaurants];
+  }
 }
 }

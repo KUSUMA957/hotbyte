@@ -77,3 +77,104 @@
 </div>
 
 </div>
+
+<!-- ✅ RESTAURANT SECTION -->
+<div class="restaurant-section">
+
+  <div class="restaurant-header">
+
+    <h2>Restaurants with online food delivery</h2>
+
+    <div class="sort">
+
+      <select #sortSelect (change)="sortRestaurants(sortSelect.value)">
+  <option value="default">Sort By</option>
+  <option value="delivery">Delivery Time</option>
+  <option value="rating">Rating</option>
+  <option value="lowToHigh">Cost: Low to High</option>
+  <option value="highToLow">Cost: High to Low</option>
+</select>
+
+    </div>
+
+  </div>
+
+  <!-- ✅ GRID -->
+  <div class="restaurant-grid">
+
+    <div 
+      class="restaurant-card"
+      *ngFor="let res of displayedRestaurants"
+      (click)="openRestaurant(res.restaurantId)"
+    >
+
+      <!-- ✅ IMAGE -->
+      <img src="/assets/categories/all.png" />
+
+      <!-- ✅ NAME -->
+      <div class="name">{{ res.restaurantName }}</div>
+
+      <!-- ✅ META -->
+      <div class="meta">
+        ⭐ {{ res.rating }}
+        <span>•</span>
+        {{ res.deliveryTime }} mins
+      </div>
+
+      <!-- ✅ LOCATION -->
+      <div class="location">
+        📍 {{ res.location }}
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<footer class="footer">
+
+  <div class="footer-container">
+
+    <!-- ✅ BRAND -->
+    <div class="footer-col brand">
+      <div class="logo">🔥 Hotbyte</div>
+      <p>© 2026 Hotbyte Limited</p>
+    </div>
+
+    <!-- ✅ COMPANY -->
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a routerLink="/company">About Us</a>
+      <a routerLink="/company">Careers</a>
+      <a routerLink="/company">Team</a>
+    </div>
+
+    <!-- ✅ CONTACT -->
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a routerLink="/contact">Help & Support</a>
+    </div>
+
+    <!-- ✅ LEGAL -->
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a routerLink="/legal">Terms & Conditions</a>
+      <a routerLink="/legal">Privacy Policy</a>
+      <a routerLink="/legal">Cookie Policy</a>
+    </div>
+
+    <!-- ✅ SOCIAL -->
+    <div class="footer-col">
+      <h4>Social</h4>
+
+      <div class="social-icons">
+        <a href="https://google.com" target="_blank">🌐</a>
+        <a href="https://facebook.com" target="_blank">📘</a>
+        <a href="https://instagram.com" target="_blank">📸</a>
+        <a href="https://twitter.com" target="_blank">🐦</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>

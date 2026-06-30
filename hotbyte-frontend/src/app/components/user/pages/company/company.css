@@ -1,0 +1,46 @@
+.page {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* ✅ TITLE */
+.page-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* ✅ SECTION CARD */
+.card-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 16px;
+
+  border: 1px solid #eee;
+}
+
+/* ✅ SECTION TITLE */
+.card-box h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* ✅ TEXT */
+.card-box p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* ✅ LIST */
+.card-box ul {
+  padding-left: 18px;
+}
+
+.card-box li {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
