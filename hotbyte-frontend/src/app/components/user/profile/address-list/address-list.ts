@@ -85,6 +85,16 @@ editAddress(addr: any) {
       },
       error: (err) => {
         console.error('Error deleting address', err);
+        
+      // ✅ HANDLE CONSTRAINT ERROR
+      if (err.status === 400 &&
+          err.error?.message?.toLowerCase().includes('constraint')) {
+
+        alert("⚠️ Cannot delete this address. It is used in orders.");
+      } else {
+        alert("❌ Failed to delete address");
+      }
+
       }
     });
   }

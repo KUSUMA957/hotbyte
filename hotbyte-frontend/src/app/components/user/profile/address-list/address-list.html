@@ -54,7 +54,10 @@
     <div class="actions">
 
       <button class="edit-btn" (click)="editAddress(addr)">Edit</button>
-      <button class="delete-btn" (click)="deleteAddress(addr.id)">Delete</button>
+      <button class="delete-btn" [disabled]="addr.selected"  
+
+  [ngClass]="{ 'disabled-btn': addr.selected }"
+ (click)="deleteAddress(addr.id)">Delete</button>
 
     </div>
 

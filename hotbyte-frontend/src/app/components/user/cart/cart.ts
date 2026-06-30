@@ -137,7 +137,12 @@ placeOrder() {
 
       error: (err) => {
         console.error('Error placing order', err);
-        alert("❌ Failed to place order");
+        
+if (err.status === 400 || err.error?.message?.toLowerCase().includes('address')) {
+          alert("📍 Please add address before placing order");
+        } else {
+          alert("❌ Failed to place order");
+        }
       }
     });
 }
