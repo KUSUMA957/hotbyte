@@ -1,0 +1,48 @@
+<div class="cart-container">
+
+  <h2 class="title">🛒 Your Cart</h2>
+
+  <!-- ✅ EMPTY -->
+  <div *ngIf="cartItems.length === 0" class="empty">
+    Your cart is empty
+  </div>
+
+  <!-- ✅ ITEMS -->
+  <div *ngFor="let item of cartItems" class="cart-card">
+
+    <!-- LEFT -->
+    <div class="left">
+      <div class="name">{{ item.menu.itemName }}</div>
+      <div class="price">₹{{ item.menu.price }}</div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="center">
+      <button (click)="decreaseQty(item)">−</button>
+      <span>{{ item.quantity }}</span>
+      <button (click)="increaseQty(item)">+</button>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+      ₹{{ item.menu.price * item.quantity }}
+      <span class="delete" (click)="removeItem(item.id)">✕</span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ✅ STICKY FOOTER -->
+<div class="cart-footer" *ngIf="cartItems.length > 0">
+
+  <div class="summary">
+    <div>Total</div>
+    <div class="amount">₹{{ totalAmount }}</div>
+  </div>
+
+  <button class="place-btn" (click)="placeOrder()">
+    Place Order
+  </button>
+
+</div>

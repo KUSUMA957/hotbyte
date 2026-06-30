@@ -27,6 +27,12 @@ export class RestaurantDetailsComponent implements OnInit {
 
   // ✅ Floating category toggle
   showCategories = false;
+  
+cartItems: any[] = [];
+cartMap: Map<number, any> = new Map();
+
+cartCount = 0;
+cartTotal = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +49,7 @@ export class RestaurantDetailsComponent implements OnInit {
     this.deliveryTime = Math.floor(Math.random() * 20) + 20;
 
     this.loadMenu();
+    this.loadCart();
   }
 
   loadMenu() {
@@ -125,51 +132,76 @@ export class RestaurantDetailsComponent implements OnInit {
   back() {
     this.router.navigate(['/dashboard']);
   }
-  cartCount = 0;
-cartTotal = 0;
 
-addItem(item: any) {
-  item.qty = 1;
-  this.updateCart();
-  
-      this.cdr.detectChanges(); 
 
-}
 
+// ✅ INCREASE QTY
 increase(item: any) {
-  item.qty++;
-  this.updateCart();
-  
-      this.cdr.detectChanges(); 
 
+  const cartItem = this.cartMap.get(item.id);
+
+  this.http.put(
+    `http://localhost:5489/api/user/cart/${cartItem.id}?quantity=${cartItem.quantity + 1}`,
+    {},
+    { responseType: 'text' as 'json' }
+  ).subscribe(() => {
+
+    this.loadCart(); 
+
+  });
 }
 
+
+
+// ✅ DECREASE QTY
 decrease(item: any) {
-  item.qty--;
-  if (item.qty === 0) delete item.qty;
-  this.updateCart();
-  
-      this.cdr.detectChanges(); 
 
+  const cartItem = this.cartMap.get(item.id);
+
+  if (cartItem.quantity === 1) {
+
+    this.http.delete(
+      `http://localhost:5489/api/user/cart/${cartItem.id}`,
+      { responseType: 'text' as 'json' }
+    ).subscribe(() => {
+
+      this.loadCart(); 
+
+    });
+
+  } else {
+
+    this.http.put(
+      `http://localhost:5489/api/user/cart/${cartItem.id}?quantity=${cartItem.quantity - 1}`,
+      {},
+      { responseType: 'text' as 'json' }
+    ).subscribe(() => {
+
+      this.loadCart(); 
+
+    });
+  }
 }
 
-updateCart() {
+
+
+// ✅ CART BAR ALWAYS FROM BACKEND
+updateCartBar() {
   let count = 0;
   let total = 0;
 
-  this.allItems.forEach(i => {
-    if (i.qty) {
-      count += i.qty;
-      total += i.qty * i.price;
-    }
+  this.cartItems.forEach(c => {
+    count += c.quantity;
+    total += c.quantity * c.menu.price;
   });
 
   this.cartCount = count;
   this.cartTotal = total;
-  
-      this.cdr.detectChanges(); 
-
+  this.cdr.detectChanges(); 
 }
+
+
+
 
 getCategoryImage(category: string): string {
 
@@ -185,6 +217,116 @@ getCategoryImage(category: string): string {
   const fileName = map[normalized] || normalized.replace(/\s+/g, '-') + '.png';
 
   return '/assets/categories/' + fileName;
+}
+
+
+// ✅ ADD TO CART (WITH RESTAURANT CHECK)
+addToCart(item: any) {
+
+  // ✅ CASE 1: EMPTY CART
+  if (!this.cartItems || this.cartItems.length === 0) {
+    this.addItemToBackend(item.id);
+    return;
+  }
+
+  // ✅ GET EXISTING RESTAURANT ID (from backend DTO)
+  const existingRestaurantId = this.cartItems[0].menu.restaurantId;
+
+  // ✅ COMPARE
+  if (existingRestaurantId === item.restaurantId) {
+
+    // ✅ SAME → ADD
+    this.addItemToBackend(item.id);
+
+  } else {
+
+    // ✅ DIFFERENT → CONFIRM
+    const confirmReplace = confirm(
+      "Your cart contains items from another restaurant.\nDo you want to replace it?"
+    );
+
+    if (!confirmReplace) return;
+
+    // ✅ CLEAR CART
+    const deleteCalls = this.cartItems.map(c =>
+      this.http.delete(
+        `http://localhost:5489/api/user/cart/${c.id}`,
+        { responseType: 'text' as 'json' }
+      ).toPromise()
+    );
+
+    Promise.all(deleteCalls).then(() => {
+
+      this.cartItems = [];
+      this.cartMap.clear();
+
+      this.addItemToBackend(item.id);
+    });
+  }
+}
+
+
+
+
+// ✅ ADD ITEM → BACKEND + RELOAD
+addItemToBackend(menuId: number) {
+  this.http.post(
+    `http://localhost:5489/api/user/cart/${menuId}`,
+    {},
+    { responseType: 'text' as 'json' }
+  ).subscribe(() => {
+
+    this.loadCart();  
+
+  });
+}
+
+
+
+
+openCart() {
+  this.router.navigate(['/cart']);
+}
+
+
+
+// ✅ LOAD CART FROM BACKEND
+loadCart() {
+  this.http.get<any[]>('http://localhost:5489/api/user/cart')
+    .subscribe(res => {
+
+      this.cartItems = res;
+      this.cartMap.clear();
+
+      res.forEach(c => {
+        this.cartMap.set(c.menu.id, c); // menuId → cart item
+      });
+
+      this.syncQtyWithUI();
+      this.updateCartBar();
+    });
+}
+
+
+
+
+
+
+// ✅ SYNC CART → UI ITEMS
+syncQtyWithUI() {
+  this.allItems.forEach(item => {
+
+    const cartItem = this.cartMap.get(item.id);
+
+    if (cartItem) {
+      item.qty = cartItem.quantity;  // show qty
+    } else {
+      delete item.qty; // show ADD button
+    }
+
+  });
+
+  this.updateCartBar();
 }
 
 

@@ -10,6 +10,7 @@ import { RestaurantDetailsComponent } from '../app/components/user/restaurant-de
 import { Company } from '../app/components/user/pages/company/company';
 import { Contact } from '../app/components/user/pages/contact/contact';
 import { Legal } from '../app/components/user/pages/legal/legal';
+import { Cart } from '../app/components/user/cart/cart';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -21,6 +22,6 @@ export const routes: Routes = [
   { path: 'restaurant/:id', component: RestaurantDetailsComponent },
   { path: 'company', component: Company},
   { path: 'contact', component: Contact },
-  { path: 'legal', component: Legal }
-
+  { path: 'legal', component: Legal },
+  { path: 'cart', component: Cart }
   ];

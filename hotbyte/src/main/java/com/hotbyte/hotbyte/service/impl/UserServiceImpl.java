@@ -39,11 +39,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Cart> getCart(String email) {
+    public List<CartResponseDto> getCart(String email) {
+
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        return cartRepository.findByUser(user);
+
+        List<Cart> cartList = cartRepository.findByUser(user);
+
+        return cartList.stream().map(cart -> {
+
+            Menu menu = cart.getMenu();
+
+            MenuDto menuDto = MenuDto.builder()
+                    .id(menu.getId())
+                    .itemName(menu.getItemName())
+                    .price(menu.getPrice())
+                    .restaurantId(menu.getRestaurant().getId()) 
+                    .build();
+
+            return CartResponseDto.builder()
+                    .id(cart.getId())
+                    .quantity(cart.getQuantity())
+                    .menu(menuDto)
+                    .build();
+
+        }).toList();
     }
+
 
     @Override
     public User findByEmail(String email) {

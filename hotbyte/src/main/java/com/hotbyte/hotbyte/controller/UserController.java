@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.hotbyte.hotbyte.dto.UserProfileDTO;
 import com.hotbyte.hotbyte.entity.Address;
 import com.hotbyte.hotbyte.entity.Cart;
+import com.hotbyte.hotbyte.entity.CartResponseDto;
 import com.hotbyte.hotbyte.entity.Menu;
 import com.hotbyte.hotbyte.entity.MenuResponse;
 import com.hotbyte.hotbyte.entity.User;
@@ -40,11 +41,13 @@ public class UserController {
 	    String email = authentication.getName();
 	    return userService.addToCart(menuId, email);
 	}
-	@GetMapping("/cart")
-	public List<Cart> getCart(Authentication authentication) {
-	    String email = authentication.getName();
-	    return userService.getCart(email);
-	}
+
+@GetMapping("/cart")
+public List<CartResponseDto> getCart(Authentication authentication) {
+    String email = authentication.getName();
+    return userService.getCart(email);
+}
+
 	@DeleteMapping("/cart/{cartId}")
 	public Map<String, String> removeCartItem(@PathVariable("cartId") Long cartId) {
 	    cartRepository.deleteById(cartId);

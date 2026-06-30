@@ -31,7 +31,7 @@
         </div>
 
       </div>
-
+      <div class="cart-icon" (click)="openCart()">🛒</div>
     </div>
 
   </div>
@@ -78,16 +78,21 @@
             <!-- ✅ FOOTER -->
             <div class="card-footer">
 
-              <button *ngIf="!item.qty"
-                      (click)="addItem(item)">
-                ADD
-              </button>
+              
+<!-- ✅ ADD BUTTON -->
+<button *ngIf="!item.qty"
+        (click)="addToCart(item)"
+        class="add-btn">
+  ADD
+</button>
 
-              <div class="qty-box" *ngIf="item.qty">
-                <span (click)="decrease(item)">-</span>
-                <span>{{ item.qty }}</span>
-                <span (click)="increase(item)">+</span>
-              </div>
+<!-- ✅ QTY BOX -->
+<div class="qty-box" *ngIf="item.qty">
+  <span (click)="decrease(item)">-</span>
+  <span>{{ item.qty }}</span>
+  <span (click)="increase(item)">+</span>
+</div>
+
 
             </div>
 
@@ -122,7 +127,7 @@
       ₹{{ cartTotal }}
     </div>
 
-    <button class="view-cart-btn">
+    <button class="view-cart-btn" (click)="openCart()">
       View Cart →
     </button>
 
