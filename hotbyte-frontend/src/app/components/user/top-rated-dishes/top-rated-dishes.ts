@@ -26,38 +26,32 @@ export class TopRatedDishes implements OnInit {
   }
 
  loadTopRated() {
-  this.http.get<any[]>(this.baseUrl).subscribe({
+ 
+this.http.get<any[]>(this.baseUrl).subscribe({
     next: (res) => {
 
-      // ✅ Step 1: filter
-      const topRated = (res || []).filter(item => item.rating >= 4);
+      // ✅ STEP 1: filter rating >= 4.5
+      const highRated = (res || [])
+        .filter(item => Number(item.rating) >= 4.5)
+        .sort((a, b) => Number(b.rating) - Number(a.rating)); // ✅ STEP 2: global sort
 
-      // ✅ Step 2: group by restaurant
-      const map = new Map<number, any[]>();
-
-      topRated.forEach(item => {
-
-        if (!map.has(item.restaurantId)) {
-          map.set(item.restaurantId, []);
-        }
-
-        map.get(item.restaurantId)?.push(item);
-      });
-
-      // ✅ Step 3: pick top 2 per restaurant
+      const restaurantCount = new Map<number, number>();
       const result: any[] = [];
 
-      map.forEach((items) => {
+      // ✅ STEP 3 + 4: max 2 per restaurant + limit 10
+      for (let item of highRated) {
 
-        const topTwo = items
-          .sort((a, b) => b.rating - a.rating)  // ✅ sort high → low
-          .slice(0, 2);                         // ✅ top 2
+        const count = restaurantCount.get(item.restaurantId) || 0;
 
-        result.push(...topTwo);                 // ✅ flatten
-      });
+        if (count < 2) {
+          result.push(item);
+          restaurantCount.set(item.restaurantId, count + 1);
+        }
 
-      // ✅ Step 4: Optional limit (for UI clean)
-      this.restaurants = result.slice(0, 8);
+        if (result.length >= 10) break; // ✅ max 10
+      }
+
+      this.restaurants = result;
 
       this.cdr.detectChanges();
     },
@@ -67,9 +61,9 @@ export class TopRatedDishes implements OnInit {
   });
 }
 
+
   // ✅ Navigate
   openRestaurant(id: number) {
     this.router.navigate(['/restaurant', id]);
   }
 }
-
