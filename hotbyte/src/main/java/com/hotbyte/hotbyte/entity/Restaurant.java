@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Restaurant {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String restaurantName;
-    private String location;
-    private String contactNumber;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    private LocalDateTime createdAt;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String restaurantName;
+	private String location;
+	private String contactNumber;
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	private LocalDateTime createdAt;
 }

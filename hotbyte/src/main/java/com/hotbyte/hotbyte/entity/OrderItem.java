@@ -15,16 +15,13 @@ import lombok.Setter;
 @Setter
 public class OrderItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private int quantity;
-
-    @ManyToOne
-    @JsonIgnore
-    private Order order;
-
-    @ManyToOne
-    private Menu menu;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private int quantity;
+	@ManyToOne
+	@JsonIgnore
+	private Order order;
+	@ManyToOne
+	private Menu menu;
 }

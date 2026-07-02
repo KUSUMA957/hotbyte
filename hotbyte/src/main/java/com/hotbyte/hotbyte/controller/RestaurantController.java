@@ -1,10 +1,8 @@
 package com.hotbyte.hotbyte.controller;
 
 import com.hotbyte.hotbyte.dto.MenuRequest;
-
 import com.hotbyte.hotbyte.dto.ProfileUpdateRequest;
 import com.hotbyte.hotbyte.entity.Menu;
-import com.hotbyte.hotbyte.repository.MenuRepository;
 import com.hotbyte.hotbyte.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 
@@ -19,44 +17,40 @@ import java.util.Map;
 @RequestMapping("/api/restaurant")
 @RequiredArgsConstructor
 public class RestaurantController {
-    private final RestaurantService restaurantService;
-    private final MenuRepository menuRepository;
-    @PostMapping("/menu")
-    public Map<String, String> addMenu(@RequestBody MenuRequest request,Authentication authentication) {
-        String email = authentication.getName();
-        return restaurantService.addMenu(request, email);
-    }
-    @GetMapping("/menu")
-    public List<Menu> getMyMenu(Authentication authentication) {
-        String email = authentication.getName();
-        return restaurantService.getMyMenu(email);
-    }
-    @PutMapping("/menu/{id}")
-    public Menu updateMenu(@PathVariable("id") Long id,@RequestBody MenuRequest request) {
-        return restaurantService.updateMenu(id, request);
-    }
-    @DeleteMapping("/menu/{id}")
-    public Map<String, String> deleteMenu(@PathVariable("id") Long id) {
-    	return restaurantService.deleteMenu(id);
-    }
-    @PutMapping("/profile")
-    public ResponseEntity<?> updateProfile(
-            @RequestBody ProfileUpdateRequest request,
+	private final RestaurantService restaurantService;
 
-            Authentication authentication) {
+	@PostMapping("/menu")
+	public Map<String, String> addMenu(@RequestBody MenuRequest request, Authentication authentication) {
+		String email = authentication.getName();
+		return restaurantService.addMenu(request, email);
+	}
 
-               String email = authentication.getName(); // ✅ same as principal
+	@GetMapping("/menu")
+	public List<Menu> getMyMenu(Authentication authentication) {
+		String email = authentication.getName();
+		return restaurantService.getMyMenu(email);
+	}
 
-        return ResponseEntity.ok(restaurantService.updateProfile(request, email));
-    }
-    @GetMapping("/profile")
-    public ResponseEntity<?> getProfile(Authentication authentication) {
+	@PutMapping("/menu/{id}")
+	public Menu updateMenu(@PathVariable("id") Long id, @RequestBody MenuRequest request) {
+		return restaurantService.updateMenu(id, request);
+	}
 
-        String email = authentication.getName();
+	@DeleteMapping("/menu/{id}")
+	public Map<String, String> deleteMenu(@PathVariable("id") Long id) {
+		return restaurantService.deleteMenu(id);
+	}
 
-        return ResponseEntity.ok(
-                restaurantService.getProfile(email)
-        );
-    }
+	@PutMapping("/profile")
+	public ResponseEntity<?> updateProfile(@RequestBody ProfileUpdateRequest request, Authentication authentication) {
+		String email = authentication.getName(); // ✅ same as principal
+		return ResponseEntity.ok(restaurantService.updateProfile(request, email));
+	}
+
+	@GetMapping("/profile")
+	public ResponseEntity<?> getProfile(Authentication authentication) {
+		String email = authentication.getName();
+		return ResponseEntity.ok(restaurantService.getProfile(email));
+	}
 
 }

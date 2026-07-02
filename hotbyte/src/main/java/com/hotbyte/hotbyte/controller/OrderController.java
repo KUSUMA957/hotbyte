@@ -1,9 +1,6 @@
 package com.hotbyte.hotbyte.controller;
 
-
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,26 +20,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService service;
-    private final UserService userService;
-    private final OrderRepository orderRepository;
-    // ✅ PLACE ORDER
-    @PostMapping("/place")
-    public Order placeOrder(Authentication authentication) {
+	private final OrderService service;
+	private final UserService userService;
+	private final OrderRepository orderRepository;
 
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
+	// ✅ PLACE ORDER
+	@PostMapping("/place")
+	public Order placeOrder(Authentication authentication) {
+		String email = authentication.getName();
+		User user = userService.findByEmail(email);
+		return service.placeOrder(user);
+	}
 
-        return service.placeOrder(user);
-    }
-
-    // ✅ ORDER HISTORY
-    @GetMapping
-    public List<Order> getOrders(Authentication authentication) {
-
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
-
-        return orderRepository.findByUserId(user.getId());
-    }
+	// ✅ ORDER HISTORY
+	@GetMapping
+	public List<Order> getOrders(Authentication authentication) {
+		String email = authentication.getName();
+		User user = userService.findByEmail(email);
+		return orderRepository.findByUserId(user.getId());
+	}
 }

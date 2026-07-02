@@ -22,63 +22,48 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderService {
 
-    @Autowired
-   
-    private final CartRepository cartRepo;
-    private final OrderRepository orderRepo;
-    private final AddressRepository addressRepo;
+	@Autowired
 
-    public List<Order> getOrders(User user) {
-        return orderRepo.findByUserId(user.getId());
-    }
-  
-    public Order placeOrder(User user) {
+	private final CartRepository cartRepo;
+	private final OrderRepository orderRepo;
+	private final AddressRepository addressRepo;
 
-        // ✅ 1. Get cart items
-        List<Cart> cartItems = cartRepo.findByUser(user);
+	public List<Order> getOrders(User user) {
+		return orderRepo.findByUserId(user.getId());
+	}
 
-        if (cartItems.isEmpty()) {
-            throw new RuntimeException("Cart is empty ❌");
-        }
-
-        // ✅ 2. Get selected address
-        Address address = addressRepo
-                .findByUserIdAndIsSelectedTrue(user.getId())
-                .orElseThrow(() -> new RuntimeException("No address selected ❌"));
-
-        // ✅ 3. Create order
-        Order order = new Order();
-        order.setUser(user);
-        order.setAddress(address);
-        order.setStatus("PLACED");
-        order.setCreatedAt(LocalDateTime.now());
-
-        List<OrderItem> items = new ArrayList<>();
-
-        double total = 0;
-
-        for (Cart cart : cartItems) {
-
-            OrderItem item = new OrderItem();
-            item.setMenu(cart.getMenu());
-            item.setQuantity(cart.getQuantity());
-            item.setOrder(order);
-
-            items.add(item);
-
-            total += cart.getMenu().getPrice() * cart.getQuantity();
-        }
-
-        order.setItems(items);
-        order.setTotalAmount(total);
-
-        // ✅ 4. Save order
-        orderRepo.save(order);
-
-        // ✅ 5. Clear cart
-        cartRepo.deleteAll(cartItems);
-
-        return order;
-    }
+	public Order placeOrder(User user) {
+		// ✅ 1. Get cart items
+		List<Cart> cartItems = cartRepo.findByUser(user);
+		if (cartItems.isEmpty()) {
+			throw new RuntimeException("Cart is empty ❌");
+		}
+		// ✅ 2. Get selected address
+		Address address = addressRepo.findByUserIdAndIsSelectedTrue(user.getId())
+				.orElseThrow(() -> new RuntimeException("No address selected ❌"));
+		// ✅ 3. Create order
+		Order order = new Order();
+		order.setUser(user);
+		order.setAddress(address);
+		order.setStatus("PLACED");
+		order.setCreatedAt(LocalDateTime.now());
+		List<OrderItem> items = new ArrayList<>();
+		double total = 0;
+		for (Cart cart : cartItems) {
+			OrderItem item = new OrderItem();
+			item.setMenu(cart.getMenu());
+			item.setQuantity(cart.getQuantity());
+			item.setOrder(order);
+			items.add(item);
+			total += cart.getMenu().getPrice() * cart.getQuantity();
+		}
+		order.setItems(items);
+		order.setTotalAmount(total);
+		// ✅ 4. Save order
+		orderRepo.save(order);
+		// ✅ 5. Clear cart
+		cartRepo.deleteAll(cartItems);
+		return order;
+	}
 
 }

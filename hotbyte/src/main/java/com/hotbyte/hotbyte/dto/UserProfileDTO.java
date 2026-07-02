@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class UserProfileDTO {
 
-    private String name;
-    private String email;
-    private String phone;
-    private String address;   // ✅ include your existing field
+	private String name;
+	private String email;
+	private String phone;
+	private String address; // ✅ include your existing field
 }

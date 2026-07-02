@@ -13,65 +13,41 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final CartRepository cartRepository;
-    private final UserRepository userRepository;
-    private final MenuRepository menuRepository;
-    @Override
-    public Map<String, String> addToCart(Long menuId, String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new RuntimeException("Menu not found"));
-        // ✅ check existing item
-        Cart cartItem = cartRepository
-                .findByUserAndMenu(user, menu)
-                .orElse(null);
+	private final CartRepository cartRepository;
+	private final UserRepository userRepository;
+	private final MenuRepository menuRepository;
 
-        if (cartItem != null) {
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
-        } else {
-            cartItem = Cart.builder()
-                    .user(user)
-                    .menu(menu)
-                    .quantity(1)
-                    .build();
-        }
-        cartRepository.save(cartItem);
-        return Map.of("message", "Item added to cart ✅");
-    }
+	@Override
+	public Map<String, String> addToCart(Long menuId, String email) {
+		User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+		Menu menu = menuRepository.findById(menuId).orElseThrow(() -> new RuntimeException("Menu not found"));
+		// ✅ check existing item
+		Cart cartItem = cartRepository.findByUserAndMenu(user, menu).orElse(null);
+		if (cartItem != null) {
+			cartItem.setQuantity(cartItem.getQuantity() + 1);
+		} else {
+			cartItem = Cart.builder().user(user).menu(menu).quantity(1).build();
+		}
+		cartRepository.save(cartItem);
+		return Map.of("message", "Item added to cart ✅");
+	}
 
-    @Override
-    public List<CartResponseDto> getCart(String email) {
+	@Override
+	public List<CartResponseDto> getCart(String email) {
+		User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+		List<Cart> cartList = cartRepository.findByUser(user);
+		return cartList.stream().map(cart -> {
+			Menu menu = cart.getMenu();
+			MenuDto menuDto = MenuDto.builder().id(menu.getId()).itemName(menu.getItemName()).price(menu.getPrice())
+					.restaurantId(menu.getRestaurant().getId()).build();
+			return CartResponseDto.builder().id(cart.getId()).quantity(cart.getQuantity()).menu(menuDto).build();
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+		}).toList();
+	}
 
-        List<Cart> cartList = cartRepository.findByUser(user);
-
-        return cartList.stream().map(cart -> {
-
-            Menu menu = cart.getMenu();
-
-            MenuDto menuDto = MenuDto.builder()
-                    .id(menu.getId())
-                    .itemName(menu.getItemName())
-                    .price(menu.getPrice())
-                    .restaurantId(menu.getRestaurant().getId()) 
-                    .build();
-
-            return CartResponseDto.builder()
-                    .id(cart.getId())
-                    .quantity(cart.getQuantity())
-                    .menu(menuDto)
-                    .build();
-
-        }).toList();
-    }
-
-
-    @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
-    }
+	@Override
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email)
+				.orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+	}
 }

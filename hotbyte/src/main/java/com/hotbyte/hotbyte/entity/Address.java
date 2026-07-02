@@ -12,35 +12,29 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.validation.constraints.NotBlank;
+
 @Entity
 @Getter
 @Setter
 public class Address {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-
-@NotBlank
-private String label;
-@Column(name = "address_line")
-@NotBlank
-private String addressLine;
-
-@NotBlank
-private String city;
-
-@NotBlank
-private String pincode;
-
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
-    @Column(name = "is_selected")
-    private boolean isSelected;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@NotBlank
+	private String label;
+	@Column(name = "address_line")
+	@NotBlank
+	private String addressLine;
+	@NotBlank
+	private String city;
+	@NotBlank
+	private String pincode;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	@JsonIgnore
+	private User user;
+	@Column(name = "is_selected")
+	private boolean isSelected;
 
 }

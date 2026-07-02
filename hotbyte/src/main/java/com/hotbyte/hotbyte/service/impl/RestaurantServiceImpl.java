@@ -20,153 +20,112 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class RestaurantServiceImpl implements RestaurantService {
-    private final MenuRepository menuRepository;
-    private final UserRepository userRepository;
-    private final RestaurantRepository restaurantRepository;
-    public Map<String, String> addMenu(MenuRequest request, String email) {
-        // ✅ Get logged-in user
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        // ✅ Get restaurant
-        Restaurant restaurant = restaurantRepository.findByUser(user);
-        if (restaurant == null) {
-            throw new RuntimeException("Restaurant not found for user");
-        }
-        
-        // ✅ Create menu
-        Menu menu = Menu.builder()
-                .itemName(request.getItemName())
-                .description(request.getDescription())
-                .price(request.getPrice())
-                .category(request.getCategory())
-                .type(request.getType())
-                .nutritionalInfo(request.getNutritionalInfo())
-                .calories(request.getCalories())
-                .available(true)
-                .restaurant(restaurant)
-                .createdAt(LocalDateTime.now())
-                .build();
-        menuRepository.save(menu);
-        return Map.of("message", "Menu added successfully");
-    }
-    @Override
-    public List<Menu> getMyMenu(String email) {
+	private final MenuRepository menuRepository;
+	private final UserRepository userRepository;
+	private final RestaurantRepository restaurantRepository;
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+	public Map<String, String> addMenu(MenuRequest request, String email) {
+		// ✅ Get logged-in user
+		User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+		// ✅ Get restaurant
+		Restaurant restaurant = restaurantRepository.findByUser(user);
+		if (restaurant == null) {
+			throw new RuntimeException("Restaurant not found for user");
+		}
+		// ✅ Create menu
+		Menu menu = Menu.builder().itemName(request.getItemName()).description(request.getDescription())
+				.price(request.getPrice()).category(request.getCategory()).type(request.getType())
+				.nutritionalInfo(request.getNutritionalInfo()).calories(request.getCalories()).available(true)
+				.restaurant(restaurant).createdAt(LocalDateTime.now()).build();
+		menuRepository.save(menu);
+		return Map.of("message", "Menu added successfully");
+	}
 
-        Restaurant restaurant = restaurantRepository.findByUser(user);
+	@Override
+	public List<Menu> getMyMenu(String email) {
+		User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+		Restaurant restaurant = restaurantRepository.findByUser(user);
+		// return menuRepository.findByRestaurant(restaurant);
+		return menuRepository.findByRestaurantId(restaurant.getId());
+	}
 
-        //return menuRepository.findByRestaurant(restaurant);
-        return menuRepository.findByRestaurantId(restaurant.getId());
-    }
-    // ✅ For user (public menu)
-    @Override
-    public List<MenuResponse> getAllMenu() {
+	// ✅ For user (public menu)
+	@Override
+	public List<MenuResponse> getAllMenu() {
+		List<Menu> menuList = menuRepository.findAll();
+		return menuList.stream().map(menu -> {
+			Restaurant restaurant = menu.getRestaurant();
+			return MenuResponse.builder().id(menu.getId()).itemName(menu.getItemName())
+					.description(menu.getDescription()).price(menu.getPrice()).category(menu.getCategory())
+					.type(menu.getType()).rating(menu.getRating()).servingSize(menu.getServingSize())
+					.nutritionalInfo(menu.getNutritionalInfo()).calories(menu.getCalories())
+					.available(menu.getAvailable())
 
-        List<Menu> menuList = menuRepository.findAll();
+					// ✅ NEW DATA
+					.restaurantId(restaurant != null ? restaurant.getId() : null)
+					.restaurantName(restaurant != null ? restaurant.getRestaurantName() : null)
+					.location(restaurant != null ? restaurant.getLocation() : null)
+					.build();
+		}).toList();
+	}
 
-        return menuList.stream().map(menu -> {
+	@Override
+	public Menu updateMenu(Long id, MenuRequest request) {
+		Menu menu = menuRepository.findById(id).orElseThrow();
+		menu.setItemName(request.getItemName());
+		menu.setDescription(request.getDescription());
+		menu.setPrice(request.getPrice());
+		menu.setCategory(request.getCategory());
+		menu.setRating(request.getRating());
+		menu.setServingSize(request.getServingSize());
+		menu.setNutritionalInfo(request.getNutritionalInfo());
+		menu.setAvailable(request.getAvailable());
+		return menuRepository.save(menu);
+	}
 
-            Restaurant restaurant = menu.getRestaurant();
+	@Override
+	public Map<String, String> deleteMenu(Long id) {
+		Menu menu = menuRepository.findById(id).orElseThrow(() -> new RuntimeException("Menu not found"));
+		menuRepository.delete(menu);
+		// menuRepository.deleteById(id);
+		return Map.of("message", "Deleted ✅");
+	}
 
-            return MenuResponse.builder()
-                    .id(menu.getId())
-                    .itemName(menu.getItemName())
-                    .description(menu.getDescription())
-                    .price(menu.getPrice())
-                    .category(menu.getCategory())
-                    .type(menu.getType())
-                    .rating(menu.getRating())
-                    .servingSize(menu.getServingSize())
-                    .nutritionalInfo(menu.getNutritionalInfo())
-                    .calories(menu.getCalories())
-                    .available(menu.getAvailable())
+	public Map<String, String> updateProfile(ProfileUpdateRequest request, String email) {
+		// ✅ get user
+		User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+		// ✅ get restaurant
+		Restaurant restaurant = restaurantRepository.findByUser(user);
+		// ✅ update restaurant
+		restaurant.setRestaurantName(request.getRestaurantName());
+		restaurant.setLocation(request.getLocation());
+		// ✅ update user
+		user.setName(request.getName());
+		user.setPhone(request.getPhone());
+		user.setAddress(request.getAddress());
+		user.setGender(request.getGender());
+		// ❌ DO NOT UPDATE
+		// user.setPassword(...)
+		// user.setCreatedAt(...)
+		// user.setEmail(...)
+		restaurantRepository.save(restaurant);
+		userRepository.save(user);
+		return Map.of("message", "Profile updated successfully ✅");
+	}
 
-                    // ✅ NEW DATA
-                    .restaurantId(restaurant != null ? restaurant.getId() : null)
-                    .restaurantName(restaurant != null ? restaurant.getRestaurantName() : null)
-                    .location(restaurant != null ? restaurant.getLocation() : null)
-
-                    .build();
-        }).toList();
-    }
-    @Override
-    public Menu updateMenu(Long id, MenuRequest request) {
-        Menu menu = menuRepository.findById(id)
-                .orElseThrow();
-
-        menu.setItemName(request.getItemName());
-        menu.setDescription(request.getDescription());
-        menu.setPrice(request.getPrice());
-        menu.setCategory(request.getCategory());
-        menu.setRating(request.getRating());
-        menu.setServingSize(request.getServingSize());
-        menu.setNutritionalInfo(request.getNutritionalInfo());
-        menu.setAvailable(request.getAvailable());
-        return menuRepository.save(menu);
-    }
-
-@Override
-    public Map<String, String> deleteMenu(Long id) {
-
-Menu menu = menuRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Menu not found"));
-
-    menuRepository.delete(menu);
-
-        //menuRepository.deleteById(id);
-        return Map.of("message", "Deleted ✅");
-    }
-public Map<String, String> updateProfile(ProfileUpdateRequest request, String email) {
-
-    // ✅ get user
-    User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("User not found"));
-
-    // ✅ get restaurant
-    Restaurant restaurant = restaurantRepository.findByUser(user);
-
-    // ✅ update restaurant
-    restaurant.setRestaurantName(request.getRestaurantName());
-    restaurant.setLocation(request.getLocation());
-
-    // ✅ update user
-    user.setName(request.getName());
-    user.setPhone(request.getPhone());
-    user.setAddress(request.getAddress());
-    user.setGender(request.getGender()); 
-
-    // ❌ DO NOT UPDATE
-    // user.setPassword(...)
-    // user.setCreatedAt(...)
-    // user.setEmail(...)
-
-    restaurantRepository.save(restaurant);
-    userRepository.save(user);
-
-    return Map.of("message", "Profile updated successfully ✅");
-}
-public ProfileResponse getProfile(String email) {
-
-    // ✅ get user
-    User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("User not found"));
-
-    // ✅ get restaurant
-    Restaurant restaurant = restaurantRepository.findByUser(user);
-
-    // ✅ prepare response
-    ProfileResponse response = new ProfileResponse();
-
-    response.setRestaurantName(restaurant.getRestaurantName());
-    response.setLocation(restaurant.getLocation());
-
-    response.setName(user.getName());
-    response.setPhone(user.getPhone());
-    response.setAddress(user.getAddress());
-    response.setGender(user.getGender());
-
-    return response;
-}
+	public ProfileResponse getProfile(String email) {
+		// ✅ get user
+		User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+		// ✅ get restaurant
+		Restaurant restaurant = restaurantRepository.findByUser(user);
+		// ✅ prepare response
+		ProfileResponse response = new ProfileResponse();
+		response.setRestaurantName(restaurant.getRestaurantName());
+		response.setLocation(restaurant.getLocation());
+		response.setName(user.getName());
+		response.setPhone(user.getPhone());
+		response.setAddress(user.getAddress());
+		response.setGender(user.getGender());
+		return response;
+	}
 }

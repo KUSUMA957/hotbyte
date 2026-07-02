@@ -13,14 +13,12 @@ import lombok.Setter;
 @Setter
 public class Favorite {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    private User user;
-
-    @ManyToOne
-    private Restaurant restaurant;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@ManyToOne
+	private User user;
+	@ManyToOne
+	private Restaurant restaurant;
 
 }

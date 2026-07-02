@@ -19,77 +19,60 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/user/address")
 public class AddressController {
 
-    @Autowired
-    private AddressService service;
+	@Autowired
+	private AddressService service;
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    // ✅ ADD ADDRESS
-    @PostMapping
-    public Address add(@Valid @RequestBody AddressRequest req,
-                       Authentication authentication) {
+	// ✅ ADD ADDRESS
+	@PostMapping
+	public Address add(@Valid @RequestBody AddressRequest req, Authentication authentication) {
+		String email = authentication.getName(); // ✅ correct
+		User user = userService.findByEmail(email);
+		Address address = new Address();
+		address.setLabel(req.getLabel());
+		address.setAddressLine(req.getAddressLine());
+		address.setCity(req.getCity());
+		address.setPincode(req.getPincode());
+		address.setUser(user);
+		return service.add(address, user);
+	}
 
-        String email = authentication.getName();   // ✅ correct
-        User user = userService.findByEmail(email);
+	// ✅ GET ADDRESSES
+	@GetMapping
+	public List<Address> get(Authentication authentication) {
+		String email = authentication.getName();
+		User user = userService.findByEmail(email);
+		return service.get(user);
+	}
 
-        Address address = new Address();
-        address.setLabel(req.getLabel());
-        address.setAddressLine(req.getAddressLine());
-        address.setCity(req.getCity());
-        address.setPincode(req.getPincode());
-        address.setUser(user);
+	// ✅ UPDATE ADDRESS
+	@PutMapping("/{id}")
+	public Address update(@PathVariable("id") Long id, @RequestBody AddressRequest req, Authentication authentication) {
+		String email = authentication.getName();
+		userService.findByEmail(email); // ✅ ensures user exists
+		Address address = new Address();
+		address.setLabel(req.getLabel());
+		address.setAddressLine(req.getAddressLine());
+		address.setCity(req.getCity());
+		address.setPincode(req.getPincode());
+		return service.update(id, address);
+	}
 
-        return service.add(address, user);
-    }
+	// ✅ DELETE ADDRESS
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable("id") Long id, Authentication authentication) {
+		String email = authentication.getName();
+		userService.findByEmail(email);
+		service.delete(id);
+	}
 
-    // ✅ GET ADDRESSES
-    @GetMapping
-    public List<Address> get(Authentication authentication) {
-
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
-
-        return service.get(user);
-    }
-
-    // ✅ UPDATE ADDRESS
-    @PutMapping("/{id}")
-    public Address update(@PathVariable("id") Long id,
-                          @RequestBody AddressRequest req,
-                          Authentication authentication) {
-
-        String email = authentication.getName();
-        userService.findByEmail(email); // ✅ ensures user exists
-
-        Address address = new Address();
-        address.setLabel(req.getLabel());
-        address.setAddressLine(req.getAddressLine());
-        address.setCity(req.getCity());
-        address.setPincode(req.getPincode());
-
-        return service.update(id, address);
-    }
-
-    // ✅ DELETE ADDRESS
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id,
-                       Authentication authentication) {
-
-        String email = authentication.getName();
-        userService.findByEmail(email);
-
-        service.delete(id);
-    }
-    @PutMapping("/select/{id}")
-    public Map<String, String> selectAddress(@PathVariable("id") Long id,
-                                Authentication authentication) {
-
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
-
-        service.setSelectedAddress(id, user);
-
-        return Map.of("message", "Address selected ✅");
-    }
+	@PutMapping("/select/{id}")
+	public Map<String, String> selectAddress(@PathVariable("id") Long id, Authentication authentication) {
+		String email = authentication.getName();
+		User user = userService.findByEmail(email);
+		service.setSelectedAddress(id, user);
+		return Map.of("message", "Address selected ✅");
+	}
 }

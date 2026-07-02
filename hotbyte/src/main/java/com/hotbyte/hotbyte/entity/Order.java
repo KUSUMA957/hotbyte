@@ -21,21 +21,16 @@ import lombok.Setter;
 
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private Double totalAmount;
-    private String status;
-
-    private LocalDateTime createdAt;
-
-    @ManyToOne
-    private User user;
-
-@ManyToOne
-    private Address address;  // ✅ selected address
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> items;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private Double totalAmount;
+	private String status;
+	private LocalDateTime createdAt;
+	@ManyToOne
+	private User user;
+	@ManyToOne
+	private Address address; // ✅ selected address
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	private List<OrderItem> items;
 }

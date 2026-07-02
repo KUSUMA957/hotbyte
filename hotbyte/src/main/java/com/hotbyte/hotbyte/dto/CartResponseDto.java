@@ -9,9 +9,8 @@ import lombok.*;
 
 public class CartResponseDto {
 
-	 private Long id;
-	    private Integer quantity;
-
-	    private MenuDto menu;
+	private Long id;
+	private Integer quantity;
+	private MenuDto menu;
 
 }

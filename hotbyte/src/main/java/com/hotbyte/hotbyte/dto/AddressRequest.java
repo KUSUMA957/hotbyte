@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 public class AddressRequest {
 
-    @NotBlank
-    private String label;
+	@NotBlank
+	private String label;
 
-    @NotBlank
-    private String addressLine;
+	@NotBlank
+	private String addressLine;
 
-    @NotBlank
-    private String city;
+	@NotBlank
+	private String city;
 
-    @NotBlank
-    private String pincode;
+	@NotBlank
+	private String pincode;
 }
