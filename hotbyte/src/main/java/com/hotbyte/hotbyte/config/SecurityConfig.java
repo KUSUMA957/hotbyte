@@ -22,7 +22,7 @@ public class SecurityConfig {
         			    "/swagger-ui.html"
         			).permitAll()
         // ✅ Public endpoints
-        		.requestMatchers("/api/auth/**").permitAll()
+        		//.requestMatchers("/api/auth/**").permitAll()
         // ✅ Admin only
         		.requestMatchers("/api/admin/**").hasAuthority("ADMIN")
         // ✅ Restaurant only

@@ -1,9 +1,9 @@
 package com.hotbyte.hotbyte.controller;
 
 import com.hotbyte.hotbyte.dto.RegisterRequest;
+
 import jakarta.validation.Valid;
 import com.hotbyte.hotbyte.dto.LoginRequest;
-import com.hotbyte.hotbyte.dto.AuthResponse;
 import jakarta.validation.Valid;
 import com.hotbyte.hotbyte.service.AuthService;
 import lombok.RequiredArgsConstructor;

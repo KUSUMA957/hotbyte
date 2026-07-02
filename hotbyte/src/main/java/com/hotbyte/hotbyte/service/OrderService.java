@@ -23,13 +23,13 @@ import lombok.RequiredArgsConstructor;
 public class OrderService {
 
     @Autowired
-    private OrderRepository repo;
+   
     private final CartRepository cartRepo;
     private final OrderRepository orderRepo;
     private final AddressRepository addressRepo;
 
     public List<Order> getOrders(User user) {
-        return repo.findByUserId(user.getId());
+        return orderRepo.findByUserId(user.getId());
     }
   
     public Order placeOrder(User user) {

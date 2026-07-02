@@ -1,10 +1,10 @@
 package com.hotbyte.hotbyte.service;
 
 import com.hotbyte.hotbyte.dto.MenuRequest;
+import com.hotbyte.hotbyte.dto.MenuResponse;
 import com.hotbyte.hotbyte.dto.ProfileResponse;
 import com.hotbyte.hotbyte.dto.ProfileUpdateRequest;
 import com.hotbyte.hotbyte.entity.Menu;
-import com.hotbyte.hotbyte.entity.MenuResponse;
 
 import java.util.List;
 import java.util.Map;

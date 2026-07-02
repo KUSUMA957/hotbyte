@@ -37,8 +37,7 @@ public class RestaurantController {
     }
     @DeleteMapping("/menu/{id}")
     public Map<String, String> deleteMenu(@PathVariable("id") Long id) {
-        menuRepository.deleteById(id);
-        return Map.of("message", "Menu deleted ✅");
+    	return restaurantService.deleteMenu(id);
     }
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(

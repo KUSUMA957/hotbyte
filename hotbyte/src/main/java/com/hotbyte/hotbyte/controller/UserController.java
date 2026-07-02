@@ -6,12 +6,12 @@ import org.springframework.security.core.Authentication;
 import java.util.Map;
 import org.springframework.web.bind.annotation.*;
 
+import com.hotbyte.hotbyte.dto.CartResponseDto;
+import com.hotbyte.hotbyte.dto.MenuResponse;
 import com.hotbyte.hotbyte.dto.UserProfileDTO;
 import com.hotbyte.hotbyte.entity.Address;
 import com.hotbyte.hotbyte.entity.Cart;
-import com.hotbyte.hotbyte.entity.CartResponseDto;
 import com.hotbyte.hotbyte.entity.Menu;
-import com.hotbyte.hotbyte.entity.MenuResponse;
 import com.hotbyte.hotbyte.entity.User;
 import com.hotbyte.hotbyte.repository.CartRepository;
 import com.hotbyte.hotbyte.service.AddressService;
@@ -32,10 +32,7 @@ public class UserController {
 	 public List<MenuResponse> getAllMenu() {
 	     return restaurantService.getAllMenu();
 	 }
-	@GetMapping("/test")
-	public Map<String, String> test() {
-	    return Map.of("message", "User API accessed");
-	}
+	
 	@PostMapping("/cart/{menuId}")
 	public Map<String, String> addToCart(@PathVariable("menuId") Long menuId,Authentication authentication) {
 	    String email = authentication.getName();

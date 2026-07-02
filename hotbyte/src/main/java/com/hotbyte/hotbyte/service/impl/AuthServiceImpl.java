@@ -12,8 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Map;
-
-import com.hotbyte.hotbyte.dto.AuthResponse;
 import com.hotbyte.hotbyte.dto.LoginRequest;
 import com.hotbyte.hotbyte.config.JwtUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

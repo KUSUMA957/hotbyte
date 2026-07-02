@@ -22,7 +22,6 @@ public class AddressService {
 
     public List<Address> get(User user) {
     	List<Address> list = repo.findByUserId(user.getId());
-    	System.out.println("Addresses found: " + list.size());
     	return list;
 
         //return repo.findByUserId(user.getId());

@@ -1,4 +1,4 @@
-package com.hotbyte.hotbyte.entity;
+package com.hotbyte.hotbyte.dto;
 
 import lombok.*;
 

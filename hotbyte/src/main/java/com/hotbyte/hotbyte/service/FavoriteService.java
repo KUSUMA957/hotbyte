@@ -27,9 +27,6 @@ public class FavoriteService {
         return repo.findByUserId(user.getId());
     }
 
-    public void delete(Long id) {
-        repo.deleteById(id);
-    }
 
     public void deleteByUser(Long id, User user) {
 

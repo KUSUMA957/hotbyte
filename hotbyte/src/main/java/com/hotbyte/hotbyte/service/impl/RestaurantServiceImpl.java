@@ -1,10 +1,10 @@
 package com.hotbyte.hotbyte.service.impl;
 
 import com.hotbyte.hotbyte.dto.MenuRequest;
+import com.hotbyte.hotbyte.dto.MenuResponse;
 import com.hotbyte.hotbyte.dto.ProfileResponse;
 import com.hotbyte.hotbyte.dto.ProfileUpdateRequest;
 import com.hotbyte.hotbyte.entity.Menu;
-import com.hotbyte.hotbyte.entity.MenuResponse;
 import com.hotbyte.hotbyte.entity.Restaurant;
 import com.hotbyte.hotbyte.entity.User;
 import com.hotbyte.hotbyte.repository.MenuRepository;
@@ -109,7 +109,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 @Override
     public Map<String, String> deleteMenu(Long id) {
-        menuRepository.deleteById(id);
+
+Menu menu = menuRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Menu not found"));
+
+    menuRepository.delete(menu);
+
+        //menuRepository.deleteById(id);
         return Map.of("message", "Deleted ✅");
     }
 public Map<String, String> updateProfile(ProfileUpdateRequest request, String email) {
