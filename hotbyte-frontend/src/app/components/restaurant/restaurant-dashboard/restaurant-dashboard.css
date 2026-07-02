@@ -1,69 +1,5 @@
-/* ✅ GRID → THIS IS THE MAIN FIX */
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* ✅ 2 column layout */
-  gap: 10px;
-}
-
-/* Full width rows */
-.full {
-  grid-column: span 2;
-}
-
-/* ✅ FORM GROUP */
-.form-group {
-  width: 100%;
-}
-
-/* ✅ INPUT STYLE (KEEP REGISTER STYLE) */
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  font-size: 13px;
-  outline: none;
-  transition: 0.25s;
-}
-
-/* Focus */
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 4px rgba(0,123,255,0.2);
-}
-
-/* ✅ REDUCE TEXTAREA HEIGHT (IMPORTANT) */
-textarea {
-  height: 50px;  /* ✅ smaller = less height */
-  resize: none;
-}
-
-/* ✅ BUTTON GROUP */
-.btn-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-/* ✅ CHECKBOX */
-.checkbox {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ✅ MODAL CARD HEIGHT CONTROL */
-.modal-card {
-  max-width: 360px;
-  max-height: 85vh;   /* ✅ prevents full screen */
-  overflow-y: auto;   /* ✅ scroll only when needed */
-}
-
-
-
 /* ================= GLOBAL ================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -77,6 +13,7 @@ body {
 }
 
 /* ================= DASHBOARD ================= */
+
 .dashboard {
   padding: 24px;
   max-width: 1300px;
@@ -84,6 +21,7 @@ body {
 }
 
 /* ================= HEADER ================= */
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -101,14 +39,15 @@ body {
   font-size: 14px;
 }
 
-/* Profile Icon */
+/* ================= PROFILE ================= */
+
 .profile {
   font-size: 22px;
   cursor: pointer;
   background: white;
   padding: 10px;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: 0.2s;
 }
 
@@ -116,21 +55,25 @@ body {
   transform: scale(1.05);
 }
 
-/* ================= PROFILE BOX ================= */
 .profile-box {
   position: absolute;
-  top: 70px;
-  right: 20px;
+  top: 75px;
+  right: 24px;
   width: 240px;
   background: white;
   padding: 20px;
   border-radius: 16px;
-  
- box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
   z-index: 100;
   animation: fadeIn 0.25s ease;
-
 }
+
+.profile-box button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* ================= PROFILE MODAL ================= */
 
 .profile-modal {
   max-width: 420px;
@@ -160,24 +103,8 @@ body {
   outline: none;
 }
 
-.profile-box button {
-  width: 100%;
-  margin-bottom: 10px;
-}
-.save-btn {
-  background: #2563eb;
-  color: white;
-}
-
-.cancel-btn {
-  background: #e5e7eb;
-  color: #333;
-}
-
-.cancel-btn:hover {
-  background: #d1d5db;
-}
 /* ================= WELCOME CARD ================= */
+
 .welcome-wrapper {
   display: flex;
   justify-content: center;
@@ -190,7 +117,7 @@ body {
   padding: 30px;
   border-radius: 16px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .welcome-card h3 {
@@ -204,6 +131,7 @@ body {
 }
 
 /* ================= BUTTONS ================= */
+
 button {
   border: none;
   padding: 10px 16px;
@@ -212,10 +140,6 @@ button {
   font-size: 14px;
   font-weight: 500;
   transition: 0.25s;
-}
-
-/* Primary */
-button {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
 }
@@ -225,7 +149,6 @@ button:hover {
   box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
 }
 
-/* Delete */
 .delete {
   background: linear-gradient(135deg, #ef4444, #dc2626);
 }
@@ -234,7 +157,6 @@ button:hover {
   box-shadow: 0 6px 15px rgba(220, 38, 38, 0.3);
 }
 
-/* Logout */
 .logout {
   background: #ef4444;
 }
@@ -243,7 +165,22 @@ button:hover {
   background: #dc2626;
 }
 
+.save-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background: #d1d5db;
+}
+
 /* ================= GRID ================= */
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -251,12 +188,12 @@ button:hover {
 }
 
 /* ================= CARD ================= */
+
 .card {
   background: white;
   padding: 20px;
   border-radius: 14px;
   border: 1px solid #e5e7eb;
-
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
@@ -264,7 +201,7 @@ button:hover {
 
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
 }
 
 .card h3 {
@@ -272,14 +209,12 @@ button:hover {
   margin-bottom: 8px;
 }
 
-/* Price */
 .price {
   color: #16a34a;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-/* Description */
 .desc {
   font-size: 13px;
   color: #6b7280;
@@ -287,6 +222,7 @@ button:hover {
 }
 
 /* ================= ACTIONS ================= */
+
 .actions {
   margin-top: 15px;
   display: flex;
@@ -298,6 +234,7 @@ button:hover {
 }
 
 /* ================= EMPTY ================= */
+
 .empty {
   text-align: center;
   margin-top: 60px;
@@ -312,68 +249,118 @@ button:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
 
   display: flex;
   justify-content: center;
   align-items: center;
+
   z-index: 100;
 }
 
-/* ✅ CARD (SAME AS LOGIN UI) */
 .modal-card {
   width: 100%;
-  max-width: 360px;   /* ✅ compact like login */
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+
   background: #fff;
   padding: 22px;
   border-radius: 12px;
 
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   animation: fadeIn 0.25s ease;
 }
 
+/* ================= FORM ================= */
 
-/* Inputs */
-.modal-content input,
-.modal-content textarea {
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
-  transition: 0.2s;
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
-.modal-content input:focus,
-.modal-content textarea:focus {
-  border-color: #2563eb;
+.full {
+  grid-column: span 2;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 13px;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  transition: 0.25s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
 }
 
 textarea {
-  resize: none;
   height: 70px;
+  resize: none;
 }
 
-/* Checkbox */
 .checkbox {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
 }
 
-/* Button group */
 .btn-group {
   display: flex;
   gap: 12px;
+  margin-top: 12px;
 }
 
 .btn-group button {
   flex: 1;
 }
 
+/* ================= VIEW MODAL ================= */
+
+.view-grid {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.view-grid p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.view-grid b {
+  color: #111827;
+}
+
+.modal-card .desc {
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 12px 0 18px;
+}
+
+/* ================= TITLE ================= */
+
+.title {
+  text-align: center;
+  margin-bottom: 18px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
 /* ================= RESPONSIVE ================= */
+
 @media (max-width: 768px) {
   .welcome-card {
     width: 100%;
@@ -391,15 +378,11 @@ textarea {
     grid-template-columns: 1fr;
   }
 
-  .modal-content {
-    width: 90%;
+  .form-grid {
+    grid-template-columns: 1fr;
   }
-}
 
-.title {
-  text-align: center;
-  margin-bottom: 18px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
+  .full {
+    grid-column: span 1;
+  }
 }

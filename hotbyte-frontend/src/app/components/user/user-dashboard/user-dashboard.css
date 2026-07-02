@@ -1,10 +1,12 @@
+/* ================= HEADER ================= */
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   padding: 12px 24px;
-  background: #ffffff;
+  background: #fff;
 
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 
@@ -13,7 +15,8 @@
   z-index: 100;
 }
 
-/* ✅ LEFT */
+/* LEFT */
+
 .left-section {
   flex: 1;
 }
@@ -24,24 +27,22 @@
   align-items: center;
 }
 
-/* Location icon */
 .icon {
   font-size: 18px;
 }
 
-/* Address text */
 .address {
   font-weight: 600;
   font-size: 14px;
 }
 
-/* Username */
 .username {
   font-size: 12px;
   color: #666;
 }
 
-/* ✅ CENTER */
+/* CENTER */
+
 .center-section {
   flex: 2;
   display: flex;
@@ -54,8 +55,8 @@
 
   border-radius: 25px;
   border: 1px solid #ddd;
-  outline: none;
 
+  outline: none;
   font-size: 14px;
 }
 
@@ -63,7 +64,8 @@
   border-color: #fc8019;
 }
 
-/* ✅ RIGHT */
+/* RIGHT */
+
 .right-section {
   flex: 1;
   display: flex;
@@ -74,6 +76,7 @@
 .right-section img {
   width: 36px;
   height: 36px;
+
   border-radius: 50%;
 
   transition: transform 0.2s;
@@ -82,112 +85,30 @@
 .right-section img:hover {
   transform: scale(1.1);
 }
+
+/* ================= CATEGORY RESULTS ================= */
+
 .items-section {
   padding: 20px;
 }
 
-/* ✅ ITEM CARD */
-.item-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 12px;
-  margin-bottom: 10px;
-
-  border-radius: 10px;
-  background: white;
-
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-/* LEFT */
-.left .name {
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.left .category {
-  font-size: 13px;
-  color: #666;
-}
-
-/* RIGHT IMAGE */
-.right img {
-  width: 70px;
-  height: 60px;
-  border-radius: 8px;
-  object-fit: cover;
-}
 .cards-section {
-  padding: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 20px;
 }
 
-/* ✅ CARD */
-.restaurant-card {
-  border-radius: 16px;
-  overflow: hidden;
-  cursor: pointer;
+/* ================= RESTAURANT SECTION ================= */
 
-  background: white;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: 0.3s;
-}
-
-.restaurant-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-/* ✅ IMAGE */
-.card-image {
-  height: 140px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-
-/* ✅ OVERLAY */
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-}
-
-/* ✅ CONTENT */
-.card-content {
-  padding: 12px;
-}
-
-/* ✅ NAME */
-.name {
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-/* ✅ META */
-.meta {
-  font-size: 13px;
-  color: #666;
-  margin-top: 5px;
-}
-
-.dot {
-  margin: 0 5px;
-}
 .restaurant-section {
-   padding: 15px 24px;
+  padding: 15px 24px;
 }
 
-/* ✅ HEADER */
-.restaurant-section .restaurant-header {
+.restaurant-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   margin-bottom: 15px;
 }
 
@@ -197,103 +118,216 @@
   color: #222;
 }
 
-/* ✅ SORT DROPDOWN */
+/* SORT */
+
 .sort select {
- 
-padding: 8px 14px;
+  padding: 8px 14px;
+
   border-radius: 22px;
   border: 1px solid #eee;
 
   background: #fafafa;
-  font-size: 13px;
+
   color: #444;
+  font-size: 13px;
 
   cursor: pointer;
   outline: none;
-
 }
 
-/* ✅ GRID */
+/* ================= RESTAURANT GRID ================= */
+
 .restaurant-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 18px;
 }
 
-/* ✅ CARD */
+/* ================= RESTAURANT CARD ================= */
+
 .restaurant-card {
-  cursor: pointer;
-  border-radius: 14px;
   background: white;
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-radius: 14px;
   overflow: hidden;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 
   transition: 0.3s;
 }
 
 .restaurant-card:hover {
   transform: translateY(-5px);
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* ✅ IMAGE */
-.restaurant-card img {
+/* IMAGE */
+
+.card-image {
+  position: relative;
+
+  height: 180px;
+
+  overflow: hidden;
+}
+
+.card-image img {
   width: 100%;
-  height: 150px;
+  height: 100%;
+
   object-fit: cover;
 }
 
-/* ✅ TEXT */
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* CONTENT */
+
+.card-content {
+  padding: 12px;
+}
+
 .name {
- 
-font-size: 15px;       /* ✅ reduced */
-  font-weight: 600;      /* ✅ not too bold */
+  font-size: 15px;
+  font-weight: 600;
+
   color: #222;
-  margin-top: 8px;
 
   padding: 10px 12px 0;
 }
 
 .meta {
-  font-size: 13px;
-  color: #666;
-  
-  margin-top: 3px;
-
   display: flex;
   align-items: center;
   gap: 5px;
 
   padding: 5px 12px;
+
+  color: #666;
+  font-size: 13px;
 }
 
 .location {
   font-size: 12px;
   color: #888;
-  margin-top: 2px;
+
   padding: 0 12px 12px;
-}.footer {
+}
+
+.dot {
+  margin: 0 5px;
+}
+
+/* ================= FAVORITE ================= */
+
+.heart {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  width: 36px;
+  height: 36px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+
+  cursor: pointer;
+  transition: 0.2s;
+
+  color: #ccc;
+}
+
+.heart:hover {
+  transform: scale(1.1);
+}
+
+.heart.active {
+  color: #ff4d4f;
+  font-weight: bold;
+}
+
+/* ================= ITEM CARD ================= */
+
+.item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+
+  background: white;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.left .name {
+  font-size: 16px;
+  font-weight: 600;
+
+  padding: 0;
+}
+
+.left .category {
+  font-size: 13px;
+  color: #666;
+}
+
+.right img {
+  width: 70px;
+  height: 60px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
   width: 100%;
+
   background: #f5f6f8;
+
   padding: 40px 20px;
   margin-top: 40px;
 }
 
-/* ✅ GRID */
 .footer-container {
   max-width: 1100px;
   margin: auto;
 
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
   gap: 30px;
 }
 
-/* ✅ BRAND */
+/* BRAND */
+
 .logo {
   font-size: 22px;
   font-weight: 700;
+
   color: #fc8019;
+
   margin-bottom: 10px;
 }
 
@@ -302,19 +336,25 @@ font-size: 15px;       /* ✅ reduced */
   color: #666;
 }
 
-/* ✅ HEADINGS */
+/* HEADINGS */
+
 .footer-col h4 {
   font-size: 15px;
   font-weight: 600;
+
   margin-bottom: 10px;
 }
 
-/* ✅ LINKS */
+/* LINKS */
+
 .footer-col a {
   display: block;
+
   font-size: 13px;
   color: #666;
+
   margin-bottom: 6px;
+
   text-decoration: none;
 }
 
@@ -322,7 +362,8 @@ font-size: 15px;       /* ✅ reduced */
   color: #000;
 }
 
-/* ✅ SOCIAL */
+/* SOCIAL */
+
 .social-icons {
   display: flex;
   gap: 12px;
@@ -337,10 +378,24 @@ font-size: 15px;       /* ✅ reduced */
   transform: scale(1.2);
 }
 
-/* ✅ MOBILE STACK */
+/* ================= RESPONSIVE ================= */
+
 @media (max-width: 600px) {
   .footer-container {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .center-section {
+    width: 100%;
+  }
+
+  .center-section input {
+    width: 100%;
   }
 }
 
@@ -349,61 +404,3 @@ font-size: 15px;       /* ✅ reduced */
     grid-template-columns: 1fr;
   }
 }
-.card-image {
-  position: relative;
-  
-height: 180px;
-  border-radius: 12px;
-  overflow: hidden;
-
-}
-
-.card-image img {
-  width: 100%;
-  
-height: 100%;
-  object-fit: cover;
-
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.2);
-}
-
-/* ✅ HEART */
-.heart {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-
-  width: 36px;
-  height: 36px;
-
-  background: white;
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 18px;
-
-  cursor: pointer;
-  transition: 0.2s;
-
-  color: #ccc;   /* ✅ default */
-}
-
-/* ✅ ACTIVE */
-.heart.active {
-  color: #ff4d4f;   /* ✅ proper red */
-  font-weight: bold;
-}
-
-.heart:hover {
-  transform: scale(1.1);
-}
-
-

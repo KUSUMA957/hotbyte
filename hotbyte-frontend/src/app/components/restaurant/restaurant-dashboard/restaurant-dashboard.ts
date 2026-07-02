@@ -151,8 +151,6 @@ onDocumentClick(event: any) {
  this.showModal = false;    
   this.viewMode = false;
   this.loadMenu();
-
-          this.loadMenu();
         },
         error: (err) => {
           console.log("ADD ERROR ❌", err);
